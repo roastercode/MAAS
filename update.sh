@@ -14,7 +14,7 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get update && sudo apt-get upgrade
+    sudo apt-get update ; sudo apt-get upgrade
 fi
 
 # For Archlinux / Parabola and derivatives
