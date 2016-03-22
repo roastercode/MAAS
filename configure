@@ -90,7 +90,7 @@ while true; do
     case $yn in
 	[Yy]* ) # adding remote machine to the list of hostfile
 		printf "MAS will now create a host list of remote machine to analysis\n"
-		printf "Enter one IP by line and hit Ctrl+d to finish\n"
+		printf "Enter one IP by line (ex:root@192.168.0.2) and hit Ctrl+d to finish\n"
 		while
 		      read line
 		do
@@ -121,17 +121,20 @@ while true; do
 done
 
 
-cp mas test-update update search install ~/MAS-REPORT/
+cp mas update.sh search.sh install.sh ~/MAS-REPORT/
 
 cd /home/$the_user/MAS-REPORT/
 
-chmod +x mas test-update update search install
+chmod +x mas update.sh search.sh install.sh
 
 echo "Loading MAS please wait"
 
 # git clone or pull the file to be executed localy
 
-mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'rm -rf MAS ; git clone https://github.com/aurelien-git/MAS.git ; cd MAS ; chmod +x update.sh' -m2
+# best should to use directly pssh
+# pssh -h mas-hostfile -A -l aurelien -P -I<./update.sh
+
+#mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'rm -rf MAS ; git clone https://github.com/aurelien-git/MAS.git ; cd MAS ; chmod +x update.sh' -m2
 
 #mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'cd MAS ; git pull ; chmod +x update.sh' -m2
 
