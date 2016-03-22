@@ -31,7 +31,7 @@ while true; do
     echo "What do you want to do?"
     read -p "Update & Upgrade / Search / Install? " usi
     case $usi in
-	[Uu]* ) mussh -t -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c '~/MAS/update.sh' -m2 ; break;;
+	[Uu]* ) mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'update.sh' -m2 ; break;;
 	#[Uu]* ) . test-update ; test-update ; break;;
 	#[Ss]* ) . search ; search ; break;;
 	#[Ii]* ) . install ; install ; break;;
