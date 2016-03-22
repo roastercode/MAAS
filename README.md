@@ -1,4 +1,7 @@
 # MAS - Multiplexer Administrator Solution
+## To use MAS you have to 'ENABLE ROOT LOGIN OVER SSH IN YOUR CLUSTER'
+REDHAT Documentation -> https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/V2V_Guide/Preperation_Before_the_P2V_Migration-Enable_Root_Login_over_SSH.html
+
 GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
 
@@ -20,6 +23,6 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
  
 ### What it does:
 
-	- Istall / Update / Upgrade / a cluster of different type of OS from one command
+	- Install / Update / Upgrade / a cluster of different type of OS from one command
 	
 
