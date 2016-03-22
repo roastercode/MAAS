@@ -9,11 +9,7 @@ command_exists () {
     type "$1" &> /dev/null ;
 }
 
-if command_exists dnf ; then
-    sudo dnf update
-else
-    sudo yum update
-fi
+# For Debian / Ubuntu / Trisquel / gNewSense and other in the branch
 if command_exists apt-get ; then
     sudo apt-get update && sudo apt-get upgrade
 fi
@@ -22,4 +18,9 @@ if command_exists pacman ; then
 fi
 if command_exists apt ; then
     sudo apt update ; sudo apt upgrade
+fi
+if command_exists dnf ; then
+    sudo dnf update
+else
+    sudo yum update
 fi
