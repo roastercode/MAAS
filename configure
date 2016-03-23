@@ -60,6 +60,8 @@ dir_exist () {
 }
 
 if dir_exist /home/$the_user/MAS-REPORT ; then
+    break
+else
     mkdir /home/$the_user/MAS-REPORT/
 fi
 
@@ -68,6 +70,8 @@ file_exist () {
 }
 
 if file_exist /home/$the_user/MAS-REPORT/mas-hostfile ; then
+    break
+else
     touch /home/$the_user/MAS-REPORT/mas-hostfile
 fi
 
@@ -121,11 +125,11 @@ while true; do
 done
 
 
-cp mas update.sh search.sh install.sh ~/MAS-REPORT/
+cp mas-hostfile mas update.sh ~/MAS-REPORT/
 
-cd /home/$the_user/MAS-REPORT/
+#cd /home/$the_user/MAS-REPORT/
 
-chmod +x mas update.sh search.sh install.sh
+chmod +x ~/MAS-REPORT/mas ~/MAS-REPORT/update.sh
 
 echo "Loading MAS please wait"
 

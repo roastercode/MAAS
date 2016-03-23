@@ -19,7 +19,7 @@
 
 mas() {
 
-#tput clear
+tput clear
 
 printf "\033[1;32mWelcome to MAS - Multiplexer Adminstrator Solution\033[0m\n"
 printf "\033[1;32mMAS offer you the way to works with different OS type like they were all the same\033[0m\n"
@@ -31,13 +31,29 @@ printf "\033[1;32mYou need root privileges to run it\033[0m\n"
 # execute the file in git during the configuration on the machine
 while true; do
     echo "What do you want to do?"
-    read -p "Update & Upgrade / Search / Install? (working on Search and Install and much more(just update & upgrade is usuable)) " usi
+    read -p "Update & Upgrade / Search / Install? " usi
     case $usi in
-	[Uu]* ) mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'update.sh' -m2 ; break;;
-	#[Ss]* ) mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'search.sh' -m2 ; break;;
-	#[Ii]* ) mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'install.sh' -m2 ; break;;
-	* ) echo "Please answer 'U'pdate or 'S'earch or 'I'nstall.";;
+	[Uu]* ) cd /home/$the_user/MAS-REPORT/ ; mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'update.sh' -m2 ; break;;
+	[Ss]* ) echo "which software are you looking for? "
+		read soft_search
+		cp search_file ~/MAS-REPORT/
+		cd /home/$the_user/MAS-REPORT/
+		chmod +x search_file
+		echo "Loading MAS search please wait"
+		. search_file ; search_file
+		break;;
+	[Ii]* ) echo "which software do you wish to install? "
+		read soft_install
+		cp install_file ~/MAS-REPORT/
+		cd /home/$the_user/MAS-REPORT/
+		chmod +x install_file
+		echo "Loading MAS install please wait "
+		. install_file ; install_file
+		break;;
+	* ) echo "Please answer 'U'pdate/'U'pgrade or 'S'earch or 'I'nstall.";;
     esac
 done
+
+
 
 }
