@@ -128,8 +128,6 @@ done
 
 cp mas update.sh ~/MAS-REPORT/
 
-#cd /home/$the_user/MAS-REPORT/
-
 chmod +x ~/MAS-REPORT/mas ~/MAS-REPORT/update.sh
 
 echo "Loading MAS please wait"

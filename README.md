@@ -26,8 +26,8 @@ REDHAT Documentation -> https://access.redhat.com/documentation/en-US/Red_Hat_En
 ### What it does:
 
 	- Update and Upgrade a cluster of different type of OS from one command
-	- Working at this time on search & install
-	- Working on passing argument
+	- Install a package from the package manger of the OS
+	- Working on passing argument ... search ...
 
 	
 

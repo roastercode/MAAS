@@ -8,28 +8,29 @@
 
 # Script to install a software on remote machine
 
+
 command_exists () {
     type "$1" &> /dev/null ;
 }
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get install
+    sudo apt-get install soft_install
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -Sy
+    sudo pacman -Sy soft_install
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt install
+    sudo apt install soft_install
 fi
 
 # For RedHat / Fedora / Centos and derivatives
 if command_exists dnf ; then
-    sudo dnf install
+    sudo dnf install soft_install
 else
-    sudo yum install
+    sudo yum install soft_install
 fi
