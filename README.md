@@ -27,7 +27,9 @@ REDHAT Documentation -> https://access.redhat.com/documentation/en-US/Red_Hat_En
 
 	- Update and Upgrade a cluster of different type of OS from one command
 	- Install a package from the package manger of the OS
-	- Working on passing argument ... search ...
+	- Load directly a command all over your hostfile
+
+
 
 	
 

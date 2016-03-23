@@ -132,13 +132,6 @@ chmod +x ~/MAS-REPORT/mas ~/MAS-REPORT/update.sh
 
 echo "Loading MAS please wait"
 
-# keeping that under the elbow ...
-# git clone or pull the file to be executed localy
-# best should to use directly pssh
-# pssh -h mas-hostfile -A -l aurelien -P -I<./update.sh
-#mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'rm -rf MAS ; git clone https://github.com/aurelien-git/MAS.git ; cd MAS ; chmod +x update.sh' -m2
-#mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'cd MAS ; git pull ; chmod +x update.sh' -m2
-
 sleep 5
 
 . mas

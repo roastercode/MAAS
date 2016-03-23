@@ -6,17 +6,6 @@
 # Author: Aurelien DESBRIERES - aurelien@hackers.camp
 
 
-############################### Works Fine #####################################
-#                                                                              #
-# for dnf / yum / pacman / apt                                                 #
-# search / install / update / upgrade or parsing argument                      #
-#                                                                              #
-# mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'date' -m2   #
-# mussh -a -i ~/.ssh/id_rsa -d -H mas-hostfile -c 'bash MAS/update.sh' -m2     #
-# find a way to authenticate yourself as root non-interactively                #
-#                                                                              #
-################################################################################
-
 mas() {
 
 tput clear
@@ -31,11 +20,13 @@ printf "\033[1;32mYou need root privileges to run it\033[0m\n"
 # execute the file in git during the configuration on the machine
 while true; do
     echo "What do you want to do?"
-    read -p "Update & Upgrade or Search or Install? " usi
-    case $usi in
+    read -p "Update & Upgrade | Install | Command? " uic
+    case $usic in
+	# call of update.sh
 	[Uu]* ) cd /home/$the_user/MAS-REPORT/
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'update.sh' -m2
 		break;;
+	# call of search.sh
 	[Ss]* ) echo "which software are you looking for? "
 	        read soft_search
       		cp search.sh /home/$the_user/MAS-REPORT/
@@ -43,8 +34,9 @@ while true; do
 		sed -i "s/soft_search/$soft_search/g" search.sh
 		chmod +x search.sh
 		echo "Loading MAS search please wait "
-		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'search.sh' -m2
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C "search.sh" -m2
 		break;;
+	# call of install.sh
 	[Ii]* ) echo "which software do you wish to install? "
 		read soft_install
 		cp install.sh /home/$the_user/MAS-REPORT/
@@ -54,7 +46,15 @@ while true; do
 		echo "Loading MAS install please wait "
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'install.sh' -m2
 		break;;
-	* ) echo "Please answer 'U'pdate/'U'pgrade or 'S'earch or 'I'nstall.";;
+	# call of a command
+	[Cc]* ) echo "which command do you want to load? "
+		read command_request
+		cd /home/$the_user/MAS-REPORT/
+		echo "Loading MAS command please wait "
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c "$command_request" -m2
+		break;;
+	# request of the correct word / letter
+	* ) echo "Please answer 'U'pdate/'U'pgrade or 'I'nstall or 'C'ommand.";;
     esac
 done
 
