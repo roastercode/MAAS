@@ -81,7 +81,7 @@ while true; do
     read -p "Do you wish to create/clear your old host file or use it $the_user? C/u " cu
     case $cu in
 	[Cc]* ) # Clear the target file
-		printf "\nMAS will now clear your host list of remote machine\n\n"
+		printf "\nMAS will now create/clear your host list of remote machine\n\n"
 		truncate -s 0 /home/$the_user/MAS-REPORT/mas-hostfile
 		break;;
 	[Uu]* ) break;;
@@ -126,7 +126,7 @@ while true; do
 done
 
 
-cp mas update.sh ~/MAS-REPORT/
+cp mas update.sh scan.awk ~/MAS-REPORT/
 
 chmod +x ~/MAS-REPORT/mas ~/MAS-REPORT/update.sh
 

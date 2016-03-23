@@ -30,6 +30,12 @@ REDHAT Documentation -> https://access.redhat.com/documentation/en-US/Red_Hat_En
 	- Load directly a command all over your hostfile
 
 
+### Can works with plugin
+
+	- FARON - Forensic Analyser Remote Over Network
+	  . FARON offer the tools of FAST with the power of MAS
+	  . Log everything and bring them back to the admin
+
 
 	
 
