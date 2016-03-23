@@ -17,7 +17,7 @@ the_user=`whoami`
 
 # request the user approbation
 while true; do
-    read -p "Do you wish to install MAS $the_user? Y/n " yn
+    read -p "Do you wish to run MAS $the_user? Y/n " yn
     case $yn in
 	[Yy]* ) break;;
 	[Nn]* ) exit;;
@@ -56,7 +56,7 @@ if command_exists apt ; then
 fi
  
 dir_exist () {
-    type "$2" &> /dev/null ;
+    type "$1" &> /dev/null ;
 }
 
 if dir_exist /home/$the_user/MAS-REPORT ; then
@@ -65,8 +65,9 @@ else
     mkdir /home/$the_user/MAS-REPORT/
 fi
 
+
 file_exist () {
-    type "$3" &> /dev/null ;
+    type "$?" &> /dev/null ;
 }
 
 if file_exist /home/$the_user/MAS-REPORT/mas-hostfile ; then
@@ -77,7 +78,7 @@ fi
 
 # Clear or not the host target file
 while true; do
-    read -p "Do you wish to clear your old host file or use it $the_user? C/u " cu
+    read -p "Do you wish to create/clear your old host file or use it $the_user? C/u " cu
     case $cu in
 	[Cc]* ) # Clear the target file
 		printf "\nMAS will now clear your host list of remote machine\n\n"
@@ -90,7 +91,7 @@ done
 
 # append or not new target in the target file
 while true; do
-    read -p "Do you wish to add target marchine $the_user? Y/n " yn
+    read -p "Do you wish to target new machine $the_user? Y/n " yn
     case $yn in
 	[Yy]* ) # adding remote machine to the list of hostfile
 		printf "MAS will now create a host list of remote machine to analysis\n"
@@ -125,7 +126,7 @@ while true; do
 done
 
 
-cp mas-hostfile mas update.sh ~/MAS-REPORT/
+cp mas update.sh ~/MAS-REPORT/
 
 #cd /home/$the_user/MAS-REPORT/
 
@@ -133,13 +134,11 @@ chmod +x ~/MAS-REPORT/mas ~/MAS-REPORT/update.sh
 
 echo "Loading MAS please wait"
 
+# keeping that under the elbow ...
 # git clone or pull the file to be executed localy
-
 # best should to use directly pssh
 # pssh -h mas-hostfile -A -l aurelien -P -I<./update.sh
-
 #mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'rm -rf MAS ; git clone https://github.com/aurelien-git/MAS.git ; cd MAS ; chmod +x update.sh' -m2
-
 #mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'cd MAS ; git pull ; chmod +x update.sh' -m2
 
 sleep 5
