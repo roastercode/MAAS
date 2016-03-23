@@ -15,22 +15,22 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get install soft_install
+    sudo apt-get install soft_install ; exit
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -Sy soft_install
+    sudo pacman -Sy soft_install ; exit
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt install soft_install
+    sudo apt install soft_install ; exit
 fi
 
 # For RedHat / Fedora / Centos and derivatives
 if command_exists dnf ; then
-    sudo dnf install soft_install
-else
-    sudo yum install soft_install
+    sudo dnf install soft_install ; exit
+elif
+    sudo yum install soft_install ; exit
 fi

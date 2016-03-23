@@ -14,22 +14,22 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get update ; sudo apt-get upgrade
+    sudo apt-get update ; sudo apt-get upgrade ; exit
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -Syu
+    sudo pacman -Syu ; exit
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt update ; sudo apt upgrade
+    sudo apt update ; sudo apt upgrade ; exit
 fi
 
 # For RedHat / Fedora / Centos and derivatives
 if command_exists dnf ; then
-    sudo dnf update
-else
-    sudo yum update
+    sudo dnf update ; exit
+elif
+    sudo yum update ; exit
 fi
