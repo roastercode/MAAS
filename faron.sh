@@ -182,22 +182,6 @@ fi
 printf "\n\033[1;32mYour firewall rules are:\033[0m\n$firewall\n" | tee -a MAS-REPORT/faron-report-$ip_only-firewall
 
 
-## Virus analysis
-### scan all type of filesystem
-# request what the admin want
-do
-    read -p "Do you wish to load a full virus scan on this system? Y/n " yn
-    case $yn in
-	[Yy]* ) printf "\n\033[1;32mScanning against virus will take more than one hour\033[0m\n"
-		virusscan=`sudo freshclam && sudo clamscan -ri --log=clam-log --cross-fs=yes /`
-		printf "\033[1;32mResult of the virus scan:\033[0m\n$virusscan\n" | tee -a MAS-REPORT/faron-report-$the_user-virus
-		break;;
-	[Nn]* ) break;;
-	* ) echo "Please answer Yes or no.";;
-    esac
-done
-
-
 ## Log analysis
 ### list all log of the machin
 printf "\n\033[1;32mList of all your log on $hostname:\033[0m\n"
