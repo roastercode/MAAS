@@ -21,26 +21,24 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get install clamav clamav-update clamav-freshclam clamdscan gawk
+    sudo apt-get install gawk
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -Sy clamav clamav-update iw
+    sudo pacman -Sy iw gawk
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt install clamav clamav-update
+    sudo apt install gawk
 fi
 
 # For RedHat / Fedora / Centos and derivatives
 if command_exists dnf ; then
-    sudo dnf install clamav clamav-update gawk
+    sudo dnf install gawk
 fi
-#    command_exists yum ; then
-#    sudo yum install clamav clamav-update gawk
-#fi
+
 
 
 # command
@@ -183,10 +181,24 @@ printf "\n\033[1;32mYour firewall rules are:\033[0m\n$firewall\n" | tee -a MAS-R
 
 
 ## Log analysis
-### list all log of the machin
+### list all log of the machine
+file_exist () {
+    type "$1" &> /dev/null ;
+}
+
+if file_exist MAS-REPORT/faron-report-log-list-of-$the_machine ; then
+    truncate -s 0 MAS-REPORT/faron-report-log-list-of-$the_machine ; break
+else
+    touch MAS-REPORT/faron-report-log-list-of-$the_machine
+fi
 printf "\n\033[1;32mList of all your log on $hostname:\033[0m\n"
 sudo ls -lait /var/log/ | tee -a MAS-REPORT/faron-report-log-list-of-$the_machine
 
 ## Bring back all log to the admin
+### log of FARON
 mkdir ~/MAS-REPORT/LOG/
-mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c "scp -r MAS-REPORT/* $the_user@$ip_only:~/MAS-REPORT/LOG/" -m2
+scp -r MAS-REPORT/* $the_admin@$admin_ip:~/MAS-REPORT/LOG/
+
+### log of the machine
+mkdir ~/MAS-REPORT/LOG/$ip_only/
+scp -r /var/log/* $the_admin@$admin_ip:~/MAS-REPORT/LOG/$ip_only/

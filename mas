@@ -8,7 +8,12 @@
 
 mas() {
 
+
 tput clear
+
+the_admin=`whoami`
+admin_ip=`ip addr show $network | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
+
 
 printf "\033[1;32mWelcome to MAS - Multiplexer Adminstrator Solution\033[0m\n"
 printf "\033[1;32mMAS offer you the way to works with different OS type like they were all the same\033[0m\n"
@@ -20,8 +25,8 @@ printf "\033[1;32mYou need root privileges to run it\033[0m\n"
 # execute the file in git during the configuration on the machine
 while true; do
     echo "What do you want to do?"
-    read -p "Update & Upgrade | Install | Command | Forensic analysis? " uicf
-    case $uicf in
+    read -p "Update & Upgrade | Install | Command | Forensic analysis | Virus Scan? " uicfv
+    case $uicfv in
 	# call of update.sh
 	[Uu]* ) cd /home/$the_user/MAS-REPORT/
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'update.sh' -m2
@@ -60,8 +65,14 @@ while true; do
 		cd /home/$the_user/MAS-REPORT/
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'faron.sh' -m2
 		break;;
+	[Vv]* ) echo "MAS will now load Virus Scan - Scan, log and report"
+		cp virusscan.sh ~/MAS-REPORT/
+		chmod +x ~/MAS-REPORT/virusscan.sh
+		cd /home/$the_user/MAS-REPORT/
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'virusscan.sh' -m2
+		break;;
 	# request of the correct word / letter
-	* ) echo "Please answer 'U'pdate/'U'pgrade or 'I'nstall or 'C'ommand or 'F'orensic.";;
+	* ) echo "Please answer 'U'pdate/'U'pgrade or 'I'nstall or 'C'ommand or 'F'orensic or 'V'irus scan.";;
     esac
 done
 
