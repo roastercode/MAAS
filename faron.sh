@@ -99,4 +99,5 @@ sudo ls -lait /var/log/ | tee -a /home/$the_user/MAS-REPORT/faron-report-log-lis
 
 ## Bring back all log to the admin
 mkdir ~/MAS-REPORT/LOG/
-mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c "scp -r MAS-REPORT/* $the_user@hostname  -I | cut -f1 -d' ':~/MAS-REPORT/LOG/" -m2
+ip=`hostname  -I | cut -f1 -d' '`
+mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c "scp -r MAS-REPORT/* $the_user@$ip:~/MAS-REPORT/LOG/" -m2
