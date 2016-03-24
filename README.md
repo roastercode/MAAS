@@ -35,6 +35,9 @@ REDHAT Documentation -> https://access.redhat.com/documentation/en-US/Red_Hat_En
 	- FARON - Forensic Analyser Remote Over Network
 	  . FARON offer the tools of FAST with the power of MAS
 	  . Log everything and bring them back to the admin
+	- VirusScan - Scan, log and bring back log to the admin
+	  . Load an up to date version of antivirus
+	  . Log and bring back the log to the admin
 
 
 	
