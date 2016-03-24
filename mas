@@ -66,6 +66,7 @@ while true; do
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'faron.sh' -m2
 		break;;
 	[Vv]* ) echo "MAS will now load Virus Scan - Scan, log and report"
+		mkdir ~/MAS-REPORT/LOG/
 		cp virusscan.sh ~/MAS-REPORT/
 		chmod +x ~/MAS-REPORT/virusscan.sh
 		cd /home/$the_user/MAS-REPORT/

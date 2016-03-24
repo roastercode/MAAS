@@ -196,9 +196,9 @@ sudo ls -lait /var/log/ | tee -a MAS-REPORT/faron-report-log-list-of-$the_machin
 
 ## Bring back all log to the admin
 ### log of FARON
-mkdir ~/MAS-REPORT/LOG/
 scp -r MAS-REPORT/* $the_admin@$admin_ip:~/MAS-REPORT/LOG/
 
+
 ### log of the machine
-mkdir ~/MAS-REPORT/LOG/$ip_only/
-scp -r /var/log/* $the_admin@$admin_ip:~/MAS-REPORT/LOG/$ip_only/
+sudo tar czvf log$ip_only.tar.gz /var/log/ 
+scp -r log$ip_only.tar.gz $the_admin@$admin_ip:~/MAS-REPORT/LOG/
