@@ -2,7 +2,7 @@
 
 GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
-## This software is a toolkit for software administration on different type of OS.
+## Mass is a toolkit that works on all your different type of OS remotely at the same time.
 
 
 #### To use MAS you have to 'ENABLE ROOT LOGIN OVER SSH IN YOUR CLUSTER'
