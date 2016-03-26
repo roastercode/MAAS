@@ -46,7 +46,7 @@ the_user=`whoami`
 the_machine=`hostname`
 ip=`ip a | grep inet | grep 192`
 network=`ip addr show | awk '/inet.*brd/{print $NF; exit}'`
-ip_only=`ip addr show $network | grep "inet\b" | awk '{print $2}' | cut -d/ -f1`
+ip_only=`ip addr show $network | grep "inet\b" | grep 192 | awk '{print $2}' | cut -d/ -f1`
 
 sudo mkdir MAS-REPORT
 
@@ -200,5 +200,7 @@ scp -r MAS-REPORT/* $the_admin@$admin_ip:~/MAS-REPORT/LOG/
 
 
 ### log of the machine
-sudo tar czvf log$ip_only.tar.gz /var/log/ 
-scp -r log$ip_only.tar.gz $the_admin@$admin_ip:~/MAS-REPORT/LOG/
+sudo tar czvf log$ip_only.tar.gz /var/log/
+cp log$ip_only.tar.gz ~/MAS-REPORT/LOG/
+sudo tar czvf mas-log$ip_only.tar.gz ~/MAS-REPORT/LOG/
+scp -r mas-log$ip_only.tar.gz $the_admin@$admin_ip:~/MAS-REPORT/LOG/

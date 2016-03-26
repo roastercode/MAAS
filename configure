@@ -125,7 +125,6 @@ while true; do
     esac
 done
 
-
 cp mas update.sh scan.awk ~/MAS-REPORT/
 
 chmod +x ~/MAS-REPORT/mas ~/MAS-REPORT/update.sh
