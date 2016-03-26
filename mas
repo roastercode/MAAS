@@ -13,7 +13,7 @@ tput clear
 
 the_admin=`whoami`
 admin_ip=`ip addr show $network | grep "inet\b" | grep 192 | awk '{print $2}' | cut -d/ -f1`
-admin_address=`$the_admin@$admin_ip:~/MAS-REPORT/LOG/`
+#admin_address=`$the_admin@$admin_ip:~/MAS-REPORT/LOG/`
 mkdir ~/MAS-REPORT/LOG/
 
 printf "\033[1;32mWelcome to MAS - Multiplexer Adminstrator Solution\033[0m\n"
@@ -26,7 +26,9 @@ printf "\033[1;32mYou need root privileges to run it\033[0m\n"
 # execute the file in git during the configuration on the machine
 while true; do
     echo "What do you want to do?"
-    printf "All log during Forensic and Virus Scan analysis will be send back to\n$the_admin@$admin_ip:~/MAS-REPORT/LOG/\n"
+    printf "All log during Forensic and Virus Scan analysis will be send back to\n"
+    echo "$the_admin@$admin_ip:~/MAS-REPORT/LOG/"
+    #operator_address=`grep operator`
     read -p "Update & Upgrade | Install | Command | Forensic analysis | Virus Scan? " uicfv
     case $uicfv in
 	# call of update.sh
@@ -66,6 +68,7 @@ while true; do
 		chmod +x ~/MAS-REPORT/faron.sh
 		cd /home/$the_user/MAS-REPORT/
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'faron.sh' -m2
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'scp -r mas-log* $the_admin@$admin_ip:~/MAS-REPORT/LOG/' -m2
 		break;;
 	[Vv]* ) echo "MAS will now load Virus Scan - Scan, log and report"
 		mkdir ~/MAS-REPORT/LOG/
@@ -73,6 +76,7 @@ while true; do
 		chmod +x ~/MAS-REPORT/virusscan.sh
 		cd /home/$the_user/MAS-REPORT/
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'virusscan.sh' -m2
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'scp -r mas-log* $the_admin@$admin_ip:~/MAS-REPORT/LOG/' -m2
 		break;;
 	# request of the correct word / letter
 	* ) echo "Please answer 'U'pdate/'U'pgrade or 'I'nstall or 'C'ommand or 'F'orensic or 'V'irus scan.";;

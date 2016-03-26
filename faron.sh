@@ -195,12 +195,8 @@ printf "\n\033[1;32mList of all your log on $hostname:\033[0m\n"
 sudo ls -lait /var/log/ | tee -a MAS-REPORT/faron-report-log-list-of-$the_machine
 
 ## Bring back all log to the admin
-### log of FARON
-scp -r MAS-REPORT/* $the_admin@$admin_ip:~/MAS-REPORT/LOG/
-
-
-### log of the machine
+### log of FARON + log of the machine
 sudo tar czvf log$ip_only.tar.gz /var/log/
 cp log$ip_only.tar.gz ~/MAS-REPORT/LOG/
 sudo tar czvf mas-log$ip_only.tar.gz ~/MAS-REPORT/LOG/
-scp -r mas-log$ip_only.tar.gz $the_admin@$admin_ip:~/MAS-REPORT/LOG/
+
