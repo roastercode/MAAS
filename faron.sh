@@ -111,7 +111,7 @@ else
     touch MAS-REPORT/faron-report-network-arround-$ip_only
 fi
 
-printf "\n\033[1;32mFARON will not get closer informations on networks\n(also if there is wifi network around you.)\033[0m\n"
+printf "\n\033[1;32mFARON will now get closer informations on networks\n(also if there is wifi network around you.)\033[0m\n"
 printf "\033[1;32mCloser information on that wifi network around:\033[0m\n"
 sudo iwlist $network s | grep 'ESSID\|IEEE' | tee -a MAS-REPORT/faron-report-network-arround-$the_user
 
