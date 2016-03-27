@@ -70,7 +70,9 @@ while true; do
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'faron.sh' -m2
 		echo "Enter the address where you want to bring the all log analysis back (ex: you@192.000.000.0)"
 		read operator
-		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'scp -r mas-log* $operator:~/MAS-REPORT/LOG/' -m2
+		sed -i "s/operator@operator/$operator/g" operator.sh
+		chmod +x operator.sh
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'operator.sh' -m2
 		break;;
 	[Vv]* ) echo "MAS will now load Virus Scan - Scan, log and report"
 		mkdir ~/MAS-REPORT/LOG/
@@ -80,7 +82,9 @@ while true; do
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'virusscan.sh' -m2
 		echo "Enter the address where you want to bring the all log analysis back (ex: you@192.000.000.0)"
 		read operator
-		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'scp -r mas-log* $operator:~/MAS-REPORT/LOG/' -m2
+		sed -i "s/operator@operator/$operator/g" operator.sh
+		chmod +x operator.sh
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'operator.sh' -m2
 		break;;
 	# request of the correct word / letter
 	* ) echo "Please answer 'U'pdate/'U'pgrade or 'I'nstall or 'C'ommand or 'F'orensic or 'V'irus scan.";;
