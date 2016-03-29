@@ -11,5 +11,5 @@
 
 user_directory=`ls /home > file ; cat file | grep -v lost+found`
 
-
+chown $user_directory:$user_directory /home/$user_directory/mas-log*.tar.gz
 scp /home/$user_directory/mas-log*.tar.gz operator@operator:~/ ; exit
