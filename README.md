@@ -5,7 +5,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 ## Mas is a toolkit that works on all your different type of OS remotely at the same time.
 
 
-![MAS image](MAS.png)
+![MAS image](img/MAS.png)
 
 
 #### To use MAS you have to 'ENABLE ROOT LOGIN OVER SSH IN YOUR CLUSTER'
