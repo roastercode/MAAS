@@ -15,6 +15,7 @@ printf "\033[1;32mFARON will run during more than one hour!\033[0m\n"
 # Vefify and install the dependencies if needed
 printf "\nThe software will now get the needed dependencies for your\noperating system $the_user\n"  
 
+
 command_exists () {
     type "$1" &> /dev/null ;
 }
@@ -97,7 +98,7 @@ fi
 
 printf "\n\033[1;32mFARON will now look for available network around you (if you use wifi)\033[0m\n"
 printf "\033[1;32mHere is the list of available network arround you $the_user\033[0m\n"
-sudo iw $network scan | awk -f scan.awk | tee -a MAS-REPORT/faron-report-network-list-$ip_only
+sudo iw $network scan | awk -f /root/MAS/scan.awk | tee -a MAS-REPORT/faron-report-network-list-$ip_only
 
 
 ### catching wifi network arround

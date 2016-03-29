@@ -11,10 +11,11 @@ mas() {
 
 tput clear
 
+the_user=`whoami`
 the_admin=`whoami`
 admin_ip=`ip addr show $network | grep "inet\b" | grep 192 | awk '{print $2}' | cut -d/ -f1`
 #admin_address=`$the_admin@$admin_ip:~/MAS-REPORT/LOG/`
-mkdir ~/MAS-REPORT/LOG/
+
 
 printf "\033[1;32mWelcome to MAS - Multiplexer Adminstrator Solution\033[0m\n"
 printf "\033[1;32mMAS offer you the way to works with different OS type like they were all the same\033[0m\n"
@@ -22,20 +23,33 @@ printf "\033[1;32mMAS offer you the way to works with different OS type like the
 printf "\033[1;32mPlease report your needs to:\033[0m aurelien@hackers.camp\n"
 printf "\033[1;32mYou need root privileges to run it\033[0m\n"
 
+# Copy files in the working directory
+mkdir /home/$the_user/MAS-REPORT/
+mkdir /home/$the_user/MAS-REPORT/LOG/
+cp scan.awk faron.sh operator.sh update.sh search.sh install.sh virusscan.sh /home/$the_user/MAS/
+
+cd /home/$the_user/MAS/
+
+
+printf "\033[1;32m\nCoying files on remote machines\033[0m\n"
+for s in $(cat mas-hostfile) ; do
+    scp -r /home/$the_user/MAS/ $s:~/MAS/
+done
+
 # request the user what he want to do
 # execute the file in git during the configuration on the machine
 while true; do
     echo "What do you want to do?"
-    printf "All log during Forensic and Virus Scan analysis will be send back to\n"
-    echo "$the_admin@$admin_ip:~/MAS-REPORT/LOG/"
     #operator_address=`grep operator`
     read -p "Update & Upgrade | Install | Command | Forensic analysis | Virus Scan? " uicfv
     case $uicfv in
-	# call of update.sh
+	
+	# Full Update
 	[Uu]* ) cd /home/$the_user/MAS-REPORT/
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'update.sh' -m2
 		break;;
-	# call of search.sh
+	
+	# Search for a package
 	[Ss]* ) echo "which software are you looking for? "
 	        read soft_search
       		cp search.sh /home/$the_user/MAS-REPORT/
@@ -45,7 +59,8 @@ while true; do
 		echo "Loading MAS search please wait "
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C "search.sh" -m2
 		break;;
-	# call of install.sh
+	
+	# Install a package
 	[Ii]* ) echo "which software do you wish to install? "
 		read soft_install
 		cp install.sh /home/$the_user/MAS-REPORT/
@@ -55,25 +70,33 @@ while true; do
 		echo "Loading MAS install please wait "
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'install.sh' -m2
 		break;;
-	# call of a command
+	
+	# Load a command
 	[Cc]* ) echo "which command do you want to load? "
 		read command_request
 		cd /home/$the_user/MAS-REPORT/
 		echo "Loading MAS command please wait "
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c "$command_request" -m2
 		break;;
-	# call of a command
+
+	
+	# Forensic Scan & Log
 	[Ff]* ) echo "MAS will now load FARON - Forensic Analyser Remote Over Network"
-		cp faron.sh ~/MAS-REPORT/
-		chmod +x ~/MAS-REPORT/faron.sh
-		cd /home/$the_user/MAS-REPORT/
-		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'faron.sh' -m2
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'sh /root/MAS/faron.sh' -m2
 		echo "Enter the address where you want to bring the all log analysis back (ex: you@192.000.000.0)"
 		read operator
-		sed -i "s/operator@operator/$operator/g" operator.sh
-		chmod +x operator.sh
-		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'operator.sh' -m2
+		sed -i "s/operator@operator/$operator/g" operator.sh 
+
+		printf "\033[1;32m\nSending operator file on remote machines ...\033[0m\n"
+		
+		for s in $(cat mas-hostfile) ; do
+		    scp operator.sh $s:~/MAS/
+		done
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'sh /root/MAS/operator.sh' -m2
 		break;;
+
+
+	# Virus Scan & Log
 	[Vv]* ) echo "MAS will now load Virus Scan - Scan, log and report"
 		mkdir ~/MAS-REPORT/LOG/
 		cp virusscan.sh ~/MAS-REPORT/
@@ -84,8 +107,13 @@ while true; do
 		read operator
 		sed -i "s/operator@operator/$operator/g" operator.sh
 		chmod +x operator.sh
+		cd /home/$the_user/MAS-REPORT/
+		for s in $(cat mas-hostfile) ; do
+		    scp -r operator.sh $s:~/MAS/
+		done
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'operator.sh' -m2
 		break;;
+	
 	# request of the correct word / letter
 	* ) echo "Please answer 'U'pdate/'U'pgrade or 'I'nstall or 'C'ommand or 'F'orensic or 'V'irus scan.";;
     esac

@@ -59,10 +59,10 @@ dir_exist () {
     type "$1" &> /dev/null ;
 }
 
-if dir_exist /home/$the_user/MAS-REPORT ; then
+if dir_exist /home/$the_user/MAS ; then
     break
 else
-    mkdir /home/$the_user/MAS-REPORT/
+    mkdir /home/$the_user/MAS/
 fi
 
 
@@ -70,10 +70,10 @@ file_exist () {
     type "$?" &> /dev/null ;
 }
 
-if file_exist /home/$the_user/MAS-REPORT/mas-hostfile ; then
+if file_exist /home/$the_user/MAS/mas-hostfile ; then
     break
 else
-    touch /home/$the_user/MAS-REPORT/mas-hostfile
+    touch /home/$the_user/MAS/mas-hostfile
 fi
 
 # Clear or not the host target file
@@ -82,7 +82,7 @@ while true; do
     case $cu in
 	[Cc]* ) # Clear the target file
 		printf "\nMAS will now create/clear your host list of remote machine\n\n"
-		truncate -s 0 /home/$the_user/MAS-REPORT/mas-hostfile
+		truncate -s 0 /home/$the_user/MAS/mas-hostfile
 		break;;
 	[Uu]* ) break;;
 	* ) echo "Please answer Clear or use.";;
@@ -101,8 +101,8 @@ while true; do
 		do
 		    my_array=("${my_array[@]}" $line)
 		done
-		printf -- '%s\n ' "${my_array[@]}" | tee -a /home/$the_user/MAS-REPORT/mas-hostfile
-		set -f /home/$the_user/MAS-REPORT/mas-hostfile
+		printf -- '%s\n ' "${my_array[@]}" | tee -a /home/$the_user/MAS/mas-hostfile
+		set -f /home/$the_user/MAS/mas-hostfile
 		break;;
 	[Nn]* ) break;;
 	* ) echo "Please answer Yes or no.";;
@@ -125,9 +125,9 @@ while true; do
     esac
 done
 
-cp mas update.sh operator.sh scan.awk ~/MAS-REPORT/
+#cp mas update.sh operator.sh scan.awk ~/MAS/
 
-chmod +x ~/MAS-REPORT/mas ~/MAS-REPORT/update.sh
+#chmod +x ~/MAS/mas ~/MAS/update.sh
 
 echo "Loading MAS please wait"
 
