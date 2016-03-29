@@ -201,4 +201,5 @@ sudo tar czvf log$ip_only.tar.gz /var/log/
 sudo mkdir ~/MAS-REPORT/LOG/
 cp log$ip_only.tar.gz ~/MAS-REPORT/LOG/
 sudo tar czvf mas-log$ip_only.tar.gz ~/MAS-REPORT/
-
+user_directory=`ls /home > file ; cat file | grep -v lost+found`
+sudo cp mas-log* /home/$user_directory/

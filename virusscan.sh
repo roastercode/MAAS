@@ -73,5 +73,7 @@ printf "\033[1;32mResult of the virus scan:\033[0m\n$virusscan\n" | tee -a MAS-R
 
 
 ## Bring back all log to the admin
+user_directory=`ls /home > file ; cat file | grep -v lost+found`
 mkdir ~/MAS-REPORT/LOG/
 sudo tar czvf mas-log$ip_only.tar.gz ~/MAS-REPORT/LOG/
+sudo cp mas-log* /home/$user_directory/

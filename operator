@@ -1,0 +1,20 @@
+use this file to get the name@ip of the operator
+
+then make like for search (replace the name by the operator)
+
+	[Ss]* ) echo "which software are you looking for? "
+	        read soft_search
+      		cp search.sh /home/$the_user/MAS-REPORT/
+	        cd /home/$the_user/MAS-REPORT/
+		sed -i "s/soft_search/$soft_search/g" search.sh
+		chmod +x search.sh
+		echo "Loading MAS search please wait "
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C "search.sh" -m2
+		break;;
+
+
+
+aurelien@192.168.0.5:~/MAS-REPORT/LOG/
+
+
+then inject the file on the remote server for execution to bring back the file to the operator

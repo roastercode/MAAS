@@ -87,7 +87,7 @@ while true; do
 		for s in $(cat mas-hostfile) ; do
 		    scp operator.sh $s:~/MAS/
 		done
-		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'sh -x /root/MAS/operator.sh' -m2
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'sh -v /root/MAS/operator.sh' -m2
 		break;;
 
 
