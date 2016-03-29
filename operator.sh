@@ -9,5 +9,4 @@
 
 # Script to update an upgrade on the remote machine
 
-
-sudo scp /root/mas-log*.tar.gz operator@operator:~/ ; exit
+scp /root/mas-log*.tar.gz operator@operator:~/ ; exit

@@ -45,15 +45,12 @@ while true; do
     case $uicfv in
 	
 	# Full Update
-	[Uu]* ) cd /home/$the_user/MAS-REPORT/
-		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'update.sh' -m2
+	[Uu]* ) mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'update.sh' -m2
 		break;;
 	
 	# Search for a package
 	[Ss]* ) echo "which software are you looking for? "
 	        read soft_search
-      		cp search.sh /home/$the_user/MAS-REPORT/
-	        cd /home/$the_user/MAS-REPORT/
 		sed -i "s/soft_search/$soft_search/g" search.sh
 		chmod +x search.sh
 		echo "Loading MAS search please wait "
@@ -63,8 +60,6 @@ while true; do
 	# Install a package
 	[Ii]* ) echo "which software do you wish to install? "
 		read soft_install
-		cp install.sh /home/$the_user/MAS-REPORT/
-		cd /home/$the_user/MAS-REPORT/
 		sed -i "s/soft_install/$soft_install/g" install.sh
 		chmod +x install.sh
 		echo "Loading MAS install please wait "
@@ -92,26 +87,21 @@ while true; do
 		for s in $(cat mas-hostfile) ; do
 		    scp operator.sh $s:~/MAS/
 		done
-		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'sh /root/MAS/operator.sh' -m2
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'sh -x /root/MAS/operator.sh' -m2
 		break;;
 
 
 	# Virus Scan & Log
 	[Vv]* ) echo "MAS will now load Virus Scan - Scan, log and report"
 		mkdir ~/MAS-REPORT/LOG/
-		cp virusscan.sh ~/MAS-REPORT/
-		chmod +x ~/MAS-REPORT/virusscan.sh
-		cd /home/$the_user/MAS-REPORT/
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'virusscan.sh' -m2
 		echo "Enter the address where you want to bring the all log analysis back (ex: you@192.000.000.0)"
 		read operator
 		sed -i "s/operator@operator/$operator/g" operator.sh
-		chmod +x operator.sh
-		cd /home/$the_user/MAS-REPORT/
 		for s in $(cat mas-hostfile) ; do
 		    scp -r operator.sh $s:~/MAS/
 		done
-		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -C 'operator.sh' -m2
+		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c 'sh operator.sh' -m2
 		break;;
 	
 	# request of the correct word / letter
