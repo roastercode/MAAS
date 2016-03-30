@@ -14,8 +14,6 @@ tput clear
 the_user=`whoami`
 the_admin=`whoami`
 admin_ip=`ip addr show $network | grep "inet\b" | grep 192 | awk '{print $2}' | cut -d/ -f1`
-#admin_address=`$the_admin@$admin_ip:~/MAS-REPORT/LOG/`
-
 
 printf "\033[1;32mWelcome to MAS - Multiplexer Adminstrator Solution\033[0m\n"
 printf "\033[1;32mMAS offer you the way to works with different OS type like they were all the same\033[0m\n"
@@ -69,7 +67,6 @@ while true; do
 	# Load a command
 	[Cc]* ) echo "which command do you want to load? "
 		read command_request
-		cd /home/$the_user/MAS-REPORT/
 		echo "Loading MAS command please wait "
 		mussh -a -i /home/$the_user/.ssh/$private -d -H mas-hostfile -c "$command_request" -m2
 		break;;
