@@ -8,9 +8,6 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 ![MAS image](img/MAS.png)
 
 
-#### To use MAS you have to 'ENABLE ROOT LOGIN OVER SSH IN YOUR CLUSTER'
-REDHAT Documentation -> https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/V2V_Guide/Preperation_Before_the_P2V_Migration-Enable_Root_Login_over_SSH.html
-
 
 ### It is made to works on:
 
@@ -24,6 +21,7 @@ REDHAT Documentation -> https://access.redhat.com/documentation/en-US/Red_Hat_En
 
 	- . configure
 	- It will load installation of dependencies
+    - It will send all needed file on remote machines
 
  
 ### What it does:
@@ -31,6 +29,9 @@ REDHAT Documentation -> https://access.redhat.com/documentation/en-US/Red_Hat_En
 	- Update and Upgrade a cluster of different type of OS from one command
 	- Install a package from the package manger of the OS
 	- Load directly a command all over your hostfile
+    - Make Forensic analysis with the plugin Faron(made by MAS)
+    - Make Virus scan analysis with the plugin VirusScan(made by MAS)
+    - Bring back log or Forensic & VirusScan
 
 
 ### Can works with plugin
