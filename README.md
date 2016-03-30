@@ -2,7 +2,7 @@
 
 GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
-## Mas is a toolkit that works on all your different type of OS remotely at the same time.
+## Mas is an adaptive toolkit for heterogeneous LAN and Networks that works on all your different type of OS remotely at the same time without installation.
 
 
 ![MAS image](img/MAS.png)
