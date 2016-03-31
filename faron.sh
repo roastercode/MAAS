@@ -21,6 +21,7 @@ the_machine="$(hostname)"
 ip="$(ip a | grep inet | grep 192)"
 network="$(ip addr show | awk '/inet.*brd/{print $NF; exit}')"
 ip_only="$(ip addr show "$network" | grep 'inet\b' | grep 192 | awk '{print $2}' | cut -d/ -f1)"
+firewall="$(sudo iptables -L)"
 
 # Register the user identification during process
 printf "\033[1;32m%s\nRegistering you identification during the MAS process\033[0m%s\n"
@@ -130,7 +131,6 @@ sudo iftop -i "$network" -ts 300 | tee -a MAS-REPORT/faron-report-traffic-analys
 # Settings and Hardware Analysis
 ## Firewall analysis
 ### print firewall rules
-firewall="$(sudo iptables -L)"
 touch MAS-REPORT/faron-report-"$ip_only"-firewall || exit
 truncate -s 0 MAS-REPORT/faron-report-"$ip_only"-firewall
 
@@ -140,7 +140,7 @@ printf "%s\n\033[1;32mYour firewall rules are:\033[0m%s\n$firewall%s\n" | tee -a
 ## Log analysis
 ### list all log of the machine
 touch MAS-REPORT/faron-report-log-list-of-"$the_machine" || exit
-truncate -s 0 MAS-REPORT/faron-report-log-list-of-$"(the_machine)"
+truncate -s 0 MAS-REPORT/faron-report-log-list-of-$"$the_machine"
 
 printf "%s\n\033[1;32mList of all your log on $the_machine:\033[0m%s\n"
 sudo ls -lait /var/log/ | tee -a MAS-REPORT/faron-report-log-list-of-"$the_machine"
