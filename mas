@@ -11,15 +11,15 @@ mas() {
 
 tput clear
 
-the_user=$(whoami)
-the_admin=$(whoami)
-admin_ip=$"(ip addr show $network | grep 'inet\b' | grep 192 | awk '{print $2}' | cut -d/ -f1)"
+the_user="$(whoami)"
+the_admin="$(whoami)"
+admin_ip="$(ip addr show $network | grep 'inet\b' | grep 192 | awk '{print $2}' | cut -d/ -f1)"
 
-printf "\033[1;32mWelcome to MAS - Multiplexer Adminstrator Solution\033[0m\n"
-printf "\033[1;32mMAS offer you the way to works with different OS type like they were all the same\033[0m\n"
+printf "\033[1;32mWelcome to MAS - Multiplexer Adminstrator Solution\033[0m%s\n"
+printf "\033[1;32mMAS offer you the way to works with different OS type like they were all the same\033[0m%s\n"
 
-printf "\033[1;32mPlease report your needs to:\033[0m aurelien@hackers.camp\n"
-printf "\033[1;32mYou need root privileges to run it\033[0m\n"
+printf "\033[1;32mPlease report your needs to:\033[0m aurelien@hackers.camp%s\n"
+printf "\033[1;32mYou need root privileges to run it\033[0m%s\n"
 
 # Copy files in the working directory
 mkdir -p /home/"$the_user"/MAS-REPORT/
@@ -30,9 +30,9 @@ cd /home/"$the_user"/MAS/
 
 
 # Register the user identification during process
-printf "\033[1;32m\nRegistering you identification during the MAS process\033[0m\n"
+printf "\033[1;32m%s\nRegistering you identification during the MAS process\033[0m%s\n"
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-    eval $"(ssh-agent)"
+    eval "$(ssh-agent)"
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
@@ -40,9 +40,9 @@ ssh-add -l | grep "The agent has no identities" && ssh-add
 
 
 # copy files to remote host
-printf "\033[1;32m\nCoying files on remote machines\033[0m\n"
+printf "\033[1;32m%s\nCoying files on remote machines\033[0m%s\n"
 for s in $(cat mas-hostfile) ; do
-    scp -r /home/"$the_user"/MAS/ $s:~/MAS/
+    scp -r /home/"$the_user"/MAS/ "$s":~/MAS/
 done
 
 # Request the user what he want to do
@@ -87,10 +87,10 @@ while true; do
 		mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H mas-hostfile -c 'sh /root/MAS/faron.sh' -m2
 
 		# Get the log back
-		printf "\033[1;32m\nGetting all logs back ...\033[0m\n"
+		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
 
 		for s in $(cat mas-hostfile) ; do
-		    scp $s:~/mas-log*tar.gz /home/"$the_user"/MAS-REPORT/LOG/
+		    scp "$s":~/mas-log*tar.gz /home/"$the_user"/MAS-REPORT/LOG/
 		done
 		break;;
 
@@ -101,10 +101,10 @@ while true; do
 		mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H mas-hostfile -C 'virusscan.sh' -m2
 
 		# Get the log back
-		printf "\033[1;32m\nGetting all logs back ...\033[0m\n"
+		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
 
 		for s in $(cat mas-hostfile) ; do
-		    scp $s:~/mas-virus-log*tar.gz /home/"$the_user"/MAS-REPORT/LOG/
+		    scp "$s":~/mas-virus-log*tar.gz /home/"$the_user"/MAS-REPORT/LOG/
 		done
 		break;;
 	
