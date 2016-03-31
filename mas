@@ -24,7 +24,7 @@ printf "\033[1;32mYou need root privileges to run it\033[0m\n"
 # Copy files in the working directory
 mkdir /home/$the_user/MAS-REPORT/
 mkdir /home/$the_user/MAS-REPORT/LOG/
-cp scan.awk faron.sh operator.sh update.sh search.sh install.sh virusscan.sh /home/$the_user/MAS/
+cp scan.awk faron.sh update.sh install.sh virusscan.sh /home/$the_user/MAS/
 
 cd /home/$the_user/MAS/
 
