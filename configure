@@ -14,7 +14,7 @@ printf "\033[1;32mPlease report your needs to:\033[0m aurelien@hackers.camp\n"
 printf "\033[1;32mYou need root privileges to run it\033[0m\n"
 
 
-the_user=`whoami`
+the_user="$(whoami)"
 
 
 # request the user approbation
@@ -28,7 +28,7 @@ while true; do
 done
 
 # Vefify and install the dependencies if needed
-printf "\nThe software will now get the needed dependencies for your\noperating system $the_user\n"  
+printf "\nThe software will now get the needed dependencies for your\noperating system $the_user\n"
 
 # load installation of the dependencies
 # verification of the package manager
@@ -57,26 +57,14 @@ if command_exists apt ; then
     sudo apt install mussh pdsh pdsh-rcmd-ssh
 fi
  
-dir_exist () {
-    type "$1" &> /dev/null ;
-}
 
-if dir_exist /home/$the_user/MAS ; then
-    break
-else
-    mkdir /home/$the_user/MAS/
-fi
+# Verify that directory MAS exist or create it (-p option)
+mkdir -p /home/"$the_user"/MAS/
 
 
-file_exist () {
-    type "$?" &> /dev/null ;
-}
+# Verify that mas-hostfile exist or create it
+touch /home/"$the_user"/MAS/mas-hostfile || exit
 
-if file_exist /home/$the_user/MAS/mas-hostfile ; then
-    break
-else
-    touch /home/$the_user/MAS/mas-hostfile
-fi
 
 # Clear or not the host target file
 while true; do
@@ -84,7 +72,7 @@ while true; do
     case $cu in
 	[Cc]* ) # Clear the target file
 		printf "\nMAS will now create/clear your host list of remote machine\n\n"
-		truncate -s 0 /home/$the_user/MAS/mas-hostfile
+		truncate -s 0 /home/"$the_user"/MAS/mas-hostfile
 		break;;
 	[Uu]* ) break;;
 	* ) echo "Please answer Clear or use.";;
@@ -103,8 +91,8 @@ while true; do
 		do
 		    my_array=("${my_array[@]}" $line)
 		done
-		printf -- '%s\n ' "${my_array[@]}" | tee -a /home/$the_user/MAS/mas-hostfile
-		set -f /home/$the_user/MAS/mas-hostfile
+		printf -- '%s\n ' "${my_array[@]}" | tee -a /home/"$the_user"/MAS/mas-hostfile
+		set -f /home/"$the_user"/MAS/mas-hostfile
 		break;;
 	[Nn]* ) break;;
 	* ) echo "Please answer Yes or no.";;
@@ -118,7 +106,7 @@ while true; do
     case $yn in
 	[Yy]* ) # adding a key
 	    printf "\nHere is the list of your keys on this system $the_user\n"
-	    ls -la /home/$the_user/.ssh/
+	    ls -la /home/"$the_user"/.ssh/
 	    printf "\nWrite the name of the private key you wish to use $the_user\n"
 	    read private
 	    break;;
