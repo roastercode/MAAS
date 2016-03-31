@@ -28,6 +28,7 @@ cp scan.awk faron.sh operator.sh update.sh search.sh install.sh virusscan.sh /ho
 
 cd /home/$the_user/MAS/
 
+
 # Register the user identification during process
 printf "\033[1;32m\nRegistering you identification during the MAS process\033[0m\n"
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
@@ -36,6 +37,7 @@ if [ ! -S ~/.ssh/ssh_auth_sock ]; then
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 ssh-add -l | grep "The agent has no identities" && ssh-add
+
 
 # copy files to remote host
 printf "\033[1;32m\nCoying files on remote machines\033[0m\n"
