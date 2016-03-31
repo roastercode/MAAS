@@ -7,11 +7,11 @@
 
 tput clear
 
-printf "\033[1;32mWelcome to MAS - Multiplexer Adminstrator Solution\033[0m\n"
-printf "\033[1;32mThis program will install needed dependencies\033[0m\n"
+printf "\033[1;32mWelcome to MAS - Multiplexer Adminstrator Solution\033[0m%s\\n"
+printf "\033[1;32mThis program will install needed dependencies\033[0m%s\\n"
 
-printf "\033[1;32mPlease report your needs to:\033[0m aurelien@hackers.camp\n"
-printf "\033[1;32mYou need root privileges to run it\033[0m\n"
+printf "\033[1;32mPlease report your needs to:\033[0m aurelien@hackers.camp%s\\n"
+printf "\033[1;32mYou need root privileges to run it\033[0m%s\n"
 
 
 the_user="$(whoami)"
@@ -28,7 +28,7 @@ while true; do
 done
 
 # Vefify and install the dependencies if needed
-printf "\nThe software will now get the needed dependencies for your\noperating system $the_user\n"
+printf "%s\nThe software will now get the needed dependencies for your\noperating system $the_user%s\n"
 
 # load installation of the dependencies
 # verification of the package manager
@@ -71,7 +71,7 @@ while true; do
     read -p "Do you wish to create/clear your old host file or use it $the_user? C/u " cu
     case $cu in
 	[Cc]* ) # Clear the target file
-		printf "\nMAS will now create/clear your host list of remote machine\n\n"
+		printf "%s\nMAS will now create/clear your host list of remote machine%s\n%s\n"
 		truncate -s 0 /home/"$the_user"/MAS/mas-hostfile
 		break;;
 	[Uu]* ) break;;
@@ -84,8 +84,8 @@ while true; do
     read -p "Do you wish to target new machine $the_user? Y/n " yn
     case $yn in
 	[Yy]* ) # adding remote machine to the list of hostfile
-		printf "MAS will now create a host list of remote machine to analysis\n"
-		printf "Enter one IP by line (ex:root@192.168.0.2) and hit Ctrl+d to finish\n"
+		printf "MAS will now create a host list of remote machine to analysis%s\n"
+		printf "Enter one IP by line (ex:root@192.168.0.2) and hit Ctrl+d to finish%s\n"
 		while
 		      read line
 		do
@@ -105,9 +105,9 @@ while true; do
     read -p "Do you need to use a private key to connect on this cluster network? Y/n " yn
     case $yn in
 	[Yy]* ) # adding a key
-	    printf "\nHere is the list of your keys on this system $the_user\n"
+	    printf "%s\nHere is the list of your keys on this system $the_user%s\n"
 	    ls -la /home/"$the_user"/.ssh/
-	    printf "\nWrite the name of the private key you wish to use $the_user\n"
+	    printf "%s\nWrite the name of the private key you wish to use $the_user%s\n"
 	    read private
 	    break;;
 	[Nn]* ) break;;
@@ -122,7 +122,7 @@ done
 
 echo "Loading MAS please wait"
 
-sleep 5
+sleep 2
 
 . mas
 
