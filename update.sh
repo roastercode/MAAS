@@ -5,13 +5,12 @@
 # License: GPL v2 or later
 # Author: Aurelien DESBRIERES - aurelien@hackers.camp
 
-
 # Script to update an upgrade on the remote machine
 
 # Register the user identification during process
 printf "\033[1;32m\nRegistering you identification during the MAS process\033[0m\n"
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-    eval `ssh-agent`
+    eval "$(ssh-agent)"
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
@@ -40,6 +39,6 @@ fi
 # For RedHat / Fedora / Centos and derivatives
 if command_exists dnf ; then
     sudo dnf update ; exit
-elif
+else
     sudo yum update ; exit
 fi
