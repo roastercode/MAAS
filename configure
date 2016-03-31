@@ -13,7 +13,9 @@ printf "\033[1;32mThis program will install needed dependencies\033[0m\n"
 printf "\033[1;32mPlease report your needs to:\033[0m aurelien@hackers.camp\n"
 printf "\033[1;32mYou need root privileges to run it\033[0m\n"
 
+
 the_user=`whoami`
+
 
 # request the user approbation
 while true; do
@@ -37,22 +39,22 @@ command_exists () {
 # auto-selection of the package manager
 # dnf - Fedora - fredora
 if command_exists dnf ; then
-    sudo dnf install mussh
+    sudo dnf install mussh pdsh pdsh-rcmd-ssh
 else
     # yum - RedHat - old fredora
-    sudo yum install mussh
+    sudo yum install mussh pdsh pdsh-rcmd-ssh
 fi
 # apt - Debian - Trisquel
 if command_exists apt-get ; then
-    sudo apt-get install mussh
+    sudo apt-get install mussh pdsh pdsh-rcmd-ssh
 fi
 # pacman - Archlinux - Parabola
 if command_exists pacman ; then
-    sudo pacman -Sy mussh
+    sudo pacman -Sy mussh pdsh pdsh-rcmd-ssh
 fi
 # apt - Rooted smartphone
 if command_exists apt ; then
-    sudo apt install mussh
+    sudo apt install mussh pdsh pdsh-rcmd-ssh
 fi
  
 dir_exist () {
@@ -128,6 +130,7 @@ done
 #cp mas update.sh operator.sh scan.awk ~/MAS/
 
 #chmod +x ~/MAS/mas ~/MAS/update.sh
+
 
 echo "Loading MAS please wait"
 

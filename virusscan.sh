@@ -12,6 +12,18 @@ printf "\n\033[1;32mWelcome to FARON - Forensic Analyser Remote Over Network\033
 printf "\033[1;32mFARON is made to run as a MAS dependencie\033[0m\n"
 printf "\033[1;32mFARON will run during more than one hour!\033[0m\n"
 
+
+# Register the user identification during process
+printf "\033[1;32m\nRegistering you identification during the MAS process\033[0m\n"
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+    eval `ssh-agent`
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+ssh-add -l | grep "The agent has no identities" && ssh-add
+
+
+
 # Vefify and install the dependencies if needed
 printf "\nThe software will now get the needed dependencies for your\noperating system $the_user\n"  
 

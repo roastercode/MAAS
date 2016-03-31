@@ -8,6 +8,16 @@
 
 # Script to update an upgrade on the remote machine
 
+# Register the user identification during process
+printf "\033[1;32m\nRegistering you identification during the MAS process\033[0m\n"
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+    eval `ssh-agent`
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+ssh-add -l | grep "The agent has no identities" && ssh-add
+
+
 command_exists () {
     type "$1" &> /dev/null ;
 }

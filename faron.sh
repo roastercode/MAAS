@@ -15,6 +15,22 @@ printf "\033[1;32mFARON will run during more than one hour!\033[0m\n"
 # Vefify and install the dependencies if needed
 printf "\nThe software will now get the needed dependencies for your\noperating system $the_user\n"  
 
+# command
+the_user=`whoami`
+the_machine=`hostname`
+ip=`ip a | grep inet | grep 192`
+network=`ip addr show | awk '/inet.*brd/{print $NF; exit}'`
+ip_only=`ip addr show $network | grep "inet\b" | grep 192 | awk '{print $2}' | cut -d/ -f1`
+
+# Register the user identification during process
+printf "\033[1;32m\nRegistering you identification during the MAS process\033[0m\n"
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+    eval `ssh-agent`
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+ssh-add -l | grep "The agent has no identities" && ssh-add
+
 
 command_exists () {
     type "$1" &> /dev/null ;
@@ -40,14 +56,6 @@ if command_exists dnf ; then
     sudo dnf install gawk
 fi
 
-
-
-# command
-the_user=`whoami`
-the_machine=`hostname`
-ip=`ip a | grep inet | grep 192`
-network=`ip addr show | awk '/inet.*brd/{print $NF; exit}'`
-ip_only=`ip addr show $network | grep "inet\b" | grep 192 | awk '{print $2}' | cut -d/ -f1`
 
 sudo mkdir MAS-REPORT
 

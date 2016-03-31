@@ -8,8 +8,12 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 ![MAS image](img/MAS.png)
 
 
+### MAS need mussh, if your distro does not have packaged it, get the source!
+### Or request your favorite distro maintainer to package it for you
 
-### It is made to works on:
+	- MUSSH - https://sourceforge.net/projects/mussh/
+
+### It is made to works on heterogeneous LAN and Network:
 
 	- Archlinux / Parabola and derivative
 	- RedHat / Fedora / Freedora and derivative
