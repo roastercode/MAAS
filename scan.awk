@@ -1,5 +1,4 @@
-# scan.awk
-# Wifi
+#!/usr/bin/awk -f
 # List wifi network around
 
 
