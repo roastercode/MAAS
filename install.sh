@@ -9,9 +9,9 @@
 # Script to install a software on remote machine
 
 # Register the user identification during process
-printf "\033[1;32m\nRegistering you identification during the MAS process\033[0m\n"
+printf "\033[1;32m\nRegistering you identification during the MAS process\033[0m%s\n"
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-    eval $"(ssh-agent)"
+    eval "$(ssh-agent)"
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
