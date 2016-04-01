@@ -10,8 +10,8 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
 
 
-#### MAS need mussh, if your distro does not have packaged it, get the source!
-#### Or request your favorite distro maintainer to package it for you
+#### MAS is now autonomous in front the missing MUSSH in different distro
+#### But you can request your favorite distro maintainer to package it for your prefered distro ;-)
 
 	- MUSSH - https://sourceforge.net/projects/mussh/
 
@@ -26,8 +26,9 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
 ### How use it:
 
-	- . configure
-	- It will load installation of dependencies
+	- . run
+	- Will grab the MUSSH source code (gplv2) to run it in MAS
+	- It will load installation of needed dependencies of plugins
     - It will send all needed file on remote machines
 
  
