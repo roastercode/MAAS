@@ -3,18 +3,18 @@
 # Multiplexer Administrator Solution
 # License: GPL v2 or later
 # Author: Aurelien DESBRIERES - aurelien@hackers.camp
-# VirusScan is part of MAS
-# https://github.com/aurelien-git/MAS
+# VirusScan is part of MAAS
+# https://github.com/aurelien-git/MAAS
 
 tput clear # clear the terminal
 
 printf "\033[1;32mWelcome to FARON - Forensic Analyser Remote Over Network\033[0m%s\n"
-printf "\033[1;32mFARON is made to run as a MAS dependencie\033[0m%s\n"
+printf "\033[1;32mFARON is made to run as a MAAS dependencie\033[0m%s\n"
 printf "\033[1;32mFARON will run during more than one hour!\033[0m%s\n"
 
 
 # Register the user identification during process
-printf "\033[1;32m%s\nRegistering you identification during the MAS process\033[0m%s\n"
+printf "\033[1;32m%s\nRegistering you identification during the MAAS process\033[0m%s\n"
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
     eval "$(ssh-agent)"
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
@@ -63,23 +63,23 @@ the_user="$(whoami)"
 ip_only="$(awk -F'[ /]+'  '/inet /{print $3}')"
 firewall="$(sudo iptables -L)"
 virusscan="$(sudo freshclam && sudo clamscan -ri --log=clam-log --cross-fs=yes /)"
-sudo mkdir -p MAS-REPORT
+sudo mkdir -p MAAS-REPORT
 
 ## Virus analysis
 ### scan all type of filesystem
 
-touch MAS-REPORT/faron-report-"$ip_only"-virus || exit
-truncate -s 0 MAS-REPORT/faron-report-"$ip_only"-virus
+touch MAAS-REPORT/faron-report-"$ip_only"-virus || exit
+truncate -s 0 MAAS-REPORT/faron-report-"$ip_only"-virus
 
-printf "%s\n\033[1;32mYour firewall rules are:\033[0m\n$firewall%s\n" | tee -a MAS-REPORT/faron-report-"$ip_only"-virus
+printf "%s\n\033[1;32mYour firewall rules are:\033[0m\n$firewall%s\n" | tee -a MAAS-REPORT/faron-report-"$ip_only"-virus
 
 # request what the admin want
 printf "%s\n\033[1;32mScanning against virus will take more than one hour\033[0m%s\n"
 "$virusscan"
-printf "\033[1;32mResult of the virus scan:\033[0m\n$virusscan%s\n" | tee -a MAS-REPORT/faron-report-"$ip_only"-virus
+printf "\033[1;32mResult of the virus scan:\033[0m\n$virusscan%s\n" | tee -a MAAS-REPORT/faron-report-"$ip_only"-virus
 t
 
 ## Bring back all log to the admin
-mkdir -p ~/MAS-REPORT/LOG/
-sudo tar czvf mas-virus-log"$ip_only".tar.gz ~/MAS-REPORT/LOG/
+mkdir -p ~/MAAS-REPORT/LOG/
+sudo tar czvf mas-virus-log"$ip_only".tar.gz ~/MAAS-REPORT/LOG/
 

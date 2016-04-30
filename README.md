@@ -27,7 +27,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 ### How use it:
 
 	- . run
-	- Will grab the MUSSH source code (gplv2) to run it in MAS
+	- Will grab the MUSSH source code (gplv2) to run it in MAAS
 	- It will load installation of needed dependencies of plugins
     	- It will send all needed file on remote machines
 
@@ -37,15 +37,15 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 	- Update and Upgrade a cluster of different type of OS from one command
 	- Install a package from the package manger of the OS
 	- Load directly a command all over your hostfile
-    	- Make Forensic analysis with the plugin Faron(made by MAS)
-    	- Make Virus scan analysis with the plugin VirusScan(made by MAS)
+    	- Make Forensic analysis with the plugin Faron(made by MAAS)
+    	- Make Virus scan analysis with the plugin VirusScan(made by MAAS)
     	- Bring back log or Forensic & VirusScan
 
 
 ### Can works with plugin
 
 	- FARON - Forensic Analyser Remote Over Network
-	  . FARON offer the tools of FAST with the power of MAS
+	  . FARON offer the tools of FAST with the power of MAAS
 	  . Log everything and bring them back to the admin
 	- VirusScan - Scan, log and bring back log to the admin
 	  . Load an up to date version of antivirus

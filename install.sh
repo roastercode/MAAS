@@ -1,6 +1,6 @@
 #!/bin/bash
-# MAS
-# Multiplexer Adminstrator Solution
+# MAAS
+# Multiplexer Adaptive Adminstrator Solution
 # Configuration file
 # License: GPL v2 or later
 # Author: Aurelien DESBRIERES - aurelien@hackers.camp
@@ -9,7 +9,7 @@
 # Script to install a software on remote machine
 
 # Register the user identification during process
-printf "\033[1;32m\nRegistering you identification during the MAS process\033[0m%s\n"
+printf "\033[1;32m\nRegistering you identification during the MAAS process\033[0m%s\n"
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
     eval "$(ssh-agent)"
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
