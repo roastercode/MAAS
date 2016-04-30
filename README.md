@@ -5,7 +5,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 ## MAAS is a toolkit for heterogeneous LAN and Networks that works on all your different type of OS remotely at the same time without installation.
 
 
-![MAS image](img/MAS.png)
+![MAAS image](img/MAAS.png)
 
 
 
