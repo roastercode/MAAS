@@ -1,8 +1,8 @@
-# MAS - Multiplexer Administrator Solution
+# MAAS - Multiplexer Adaptive Administrator Solution
 
 GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
-## Mas is an adaptive toolkit for heterogeneous LAN and Networks that works on all your different type of OS remotely at the same time without installation.
+## MAAS is a toolkit for heterogeneous LAN and Networks that works on all your different type of OS remotely at the same time without installation.
 
 
 ![MAS image](img/MAS.png)
@@ -10,7 +10,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
 
 
-#### MAS is now autonomous in front the missing MUSSH in different distro
+#### MAAS is now autonomous in front the missing MUSSH in different distro
 #### But you can request your favorite distro maintainer to package it for your prefered distro ;-)
 
 	- MUSSH - https://sourceforge.net/projects/mussh/
@@ -29,7 +29,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 	- . run
 	- Will grab the MUSSH source code (gplv2) to run it in MAS
 	- It will load installation of needed dependencies of plugins
-    - It will send all needed file on remote machines
+    	- It will send all needed file on remote machines
 
  
 ### What it does:
@@ -37,9 +37,9 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 	- Update and Upgrade a cluster of different type of OS from one command
 	- Install a package from the package manger of the OS
 	- Load directly a command all over your hostfile
-    - Make Forensic analysis with the plugin Faron(made by MAS)
-    - Make Virus scan analysis with the plugin VirusScan(made by MAS)
-    - Bring back log or Forensic & VirusScan
+    	- Make Forensic analysis with the plugin Faron(made by MAS)
+    	- Make Virus scan analysis with the plugin VirusScan(made by MAS)
+    	- Bring back log or Forensic & VirusScan
 
 
 ### Can works with plugin
@@ -50,7 +50,3 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 	- VirusScan - Scan, log and bring back log to the admin
 	  . Load an up to date version of antivirus
 	  . Log and bring back the log to the admin
-
-
-	
-
