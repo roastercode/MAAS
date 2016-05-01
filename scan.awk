@@ -1,7 +1,6 @@
 #!/usr/bin/awk -f
-# List wifi network around
 
-# Copyright (C) 2016 Chris Seymour <https://github.com/iiSeymour> 
+# Copyright (C) 2016 Chris Seymour <chris.j.seymour@hotmail.com> 
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# List wifi network around
 
 $1 == "BSS" {
         MAC = $2
