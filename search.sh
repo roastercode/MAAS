@@ -1,6 +1,7 @@
 #!/bin/bash
 # MAAS
 # Multiplexer Adaptive Adminstrator Solution
+# Configuration file
 
 # Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp> 
 
@@ -16,19 +17,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Configuration file
 
-# Script to install a software on remote machine
 
-# Register the user identification during process
-printf "\033[1;32m\nRegistering you identification during the MAAS process\033[0m%s\n"
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-    eval "$(ssh-agent)"
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-fi
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-ssh-add -l | grep "The agent has no identities" && ssh-add
-
+# Script to search a software on remote machine
 
 command_exists () {
     type "$1" &> /dev/null ;
@@ -36,22 +27,22 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get install soft_install ; exit
+    sudo apt-cache search soft_search ; exit
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -Sy soft_install ; exit
+    sudo pacman -Ss soft_search ; exit
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt install soft_install ; exit
+    sudo apt search soft_search ; exit
 fi
 
 # For RedHat / Fedora / Centos and derivatives
 if command_exists dnf ; then
-    sudo dnf install soft_install ; exit
-else
-    sudo yum install soft_install ; exit
+    sudo dnf search soft_search ; exit
+elif
+    sudo yum search soft_search ; exit
 fi
