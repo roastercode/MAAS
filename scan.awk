@@ -1,10 +1,19 @@
 #!/usr/bin/awk -f
 # List wifi network around
 
-# This code is from stackoverflow.com
-# author: http://stackoverflow.com/users/1066031/iiseymour
-# http://stackoverflow.com/questions/17809912/parsing-iw-wlan0-scan-output/17810551#17810551
-# It is under http://creativecommons.org/licenses/by-sa/3.0/ License
+# Copyright (C) 2016 Chris Seymour <https://github.com/iiSeymour> 
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 $1 == "BSS" {
