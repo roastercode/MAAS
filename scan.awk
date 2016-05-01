@@ -1,6 +1,10 @@
 #!/usr/bin/awk -f
 # List wifi network around
 
+# This code is from stackoverflow.com
+# author: http://stackoverflow.com/users/1066031/iiseymour
+# It is under http://creativecommons.org/licenses/by-sa/3.0/ License
+
 
 $1 == "BSS" {
         MAC = $2
