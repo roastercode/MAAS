@@ -3,6 +3,7 @@
 
 # This code is from stackoverflow.com
 # author: http://stackoverflow.com/users/1066031/iiseymour
+# http://stackoverflow.com/questions/17809912/parsing-iw-wlan0-scan-output/17810551#17810551
 # It is under http://creativecommons.org/licenses/by-sa/3.0/ License
 
 
