@@ -67,8 +67,10 @@ if command_exists apt ; then
 fi
 
 # For RedHat / Fedora / Centos and derivatives
-if command_exists dnf ; then
+if command_exists yum ; then
     sudo dnf install gawk
+else
+    sudo yum install gawk
 fi
 
 
