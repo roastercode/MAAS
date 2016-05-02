@@ -71,6 +71,8 @@ fi
 # For RedHat / Fedora / Centos and derivatives
 if command_exists dnf ; then
     sudo dnf install gawk df nethogs sysstat lshw lsscsi hdparm dmidecode
+else
+    sudo yum install gawk df nethogs sysstat lshw lsscsi hdparm dmidecode
 fi
 
 sudo mkdir MAAS-REPORT
