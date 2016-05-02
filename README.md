@@ -30,7 +30,8 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 	- Will grab the MUSSH source code (gplv2) to run it in MAAS
 	- It will load installation of needed dependencies of plugins
     - It will send all needed file on remote machines
-
+    - It will execute command and plugin on remote target
+    - It will bring back all actions log to the admin
  
 ### What it does:
 
@@ -40,6 +41,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
     - Make Forensic analysis with the plugin Faron(made by MAAS)
     - Make Virus scan analysis with the plugin VirusScan(made by MAAS)
     - Bring back log or Forensic & VirusScan
+    - Make System and Hardware analysis
 
 
 ### Can works with plugin
@@ -50,3 +52,8 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 	- VirusScan - Scan, log and bring back log to the admin
 	  . Load an up to date version of antivirus
 	  . Log and bring back the log to the admin
+    - SysInfo - Make a deep analysis of Hardware and System
+      . Load the analysis on hardware
+      . Load the analysis on the system
+      . Log all the analysis
+
