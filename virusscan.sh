@@ -63,17 +63,14 @@ fi
 # For RedHat / Fedora / Centos and derivatives
 if command_exists dnf ; then
     sudo dnf install clamav clamav-update gawk
+else
+    sudo yum install clamav clamav-update gawk
 fi
-#    command_exists yum ; then
-#    sudo yum install clamav clamav-update gawk
-#fi
+
 
 
 # command
 the_user="$(whoami)"
-#the_machine="$(hostname)"
-#network="$(ip addr show | awk '/inet.*brd/{print $NF; exit}')"
-#ip_only="$(ip addr show $network | grep 'inet\b' | awk '{print $2}' | cut -d/ -f1)"
 ip_only="$(awk -F'[ /]+'  '/inet /{print $3}')"
 firewall="$(sudo iptables -L)"
 virusscan="$(sudo freshclam && sudo clamscan -ri --log=clam-log --cross-fs=yes /)"
