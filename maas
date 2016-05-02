@@ -35,7 +35,7 @@ printf "\033[1;32mYou need root privileges to run it\033[0m%s\n"
 # Copy files in the working directory
 mkdir -p /home/"$the_user"/MAAS-REPORT/
 mkdir -p /home/"$the_user"/MAAS-REPORT/LOG/
-cp scan.awk faron.sh update.sh install.sh virusscan.sh /home/"$the_user"/MAAS/
+cp scan.awk faron.sh update.sh install.sh virusscan.sh sysinfo.sh /home/"$the_user"/MAAS/
 
 cp -r mussh /home/"$the_user"/MAAS/
 cd /home/"$the_user"/MAAS/
@@ -61,8 +61,8 @@ done
 # Execute the file in git during the configuration on the machine
 while true; do
     echo "What do you want to do?"
-    read -p "Update & Upgrade | Install | Command | Forensic analysis | Virus Scan? " uicfv
-    case $uicfv in
+    read -p "Update & Upgrade | Install | Command | Forensic analysis | Virus Scan | Hardware Information? " uicfvh
+    case $uicfvh in
 	
 	# Full Update
 	[Uu]* ) mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'update.sh' -m2
@@ -117,6 +117,20 @@ while true; do
 
 		for s in $(cat maas-hostfile) ; do
 		    scp "$s":~/maas-virus-log*tar.gz /home/"$the_user"/MAAS-REPORT/LOG/
+		done
+		break;;
+	
+
+	# Hardware and System Information & Log
+	[Hh]* ) echo "MAAS will now load The Hardware and System Information Scan - Scan, log and report"
+		mkdir ~/MAAS-REPORT/LOG/
+		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'sysinfo.sh' -m2
+
+		# Get the log back
+		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
+
+		for s in $(cat maas-hostfile) ; do
+		    scp "$s":~/maas-sysinfo-log*tar.gz /home/"$the_user"/MAAS-REPORT/LOG/
 		done
 		break;;
 	

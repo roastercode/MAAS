@@ -91,9 +91,9 @@ printf "%s\n\033[1;32mYour firewall rules are:\033[0m\n$firewall%s\n" | tee -a M
 printf "%s\n\033[1;32mScanning against virus will take more than one hour\033[0m%s\n"
 "$virusscan"
 printf "\033[1;32mResult of the virus scan:\033[0m\n$virusscan%s\n" | tee -a MAAS-REPORT/faron-report-"$ip_only"-virus
-t
+
 
 ## Bring back all log to the admin
 mkdir -p ~/MAAS-REPORT/LOG/
-sudo tar czvf mas-virus-log"$ip_only".tar.gz ~/MAAS-REPORT/LOG/
+sudo tar czvf maas-virus-log"$ip_only".tar.gz ~/MAAS-REPORT/LOG/
 

@@ -164,4 +164,4 @@ sudo ls -lait /var/log/ | tee -a MAAS-REPORT/faron-report-log-list-of-"$the_mach
 sudo tar czvf log"$ip_only".tar.gz /var/log/
 sudo mkdir -p ~/MAAS-REPORT/LOG/
 cp log"$ip_only".tar.gz ~/MAAS-REPORT/LOG/
-sudo tar czvf mas-log"$ip_only".tar.gz ~/MAAS-REPORT/
+sudo tar czvf maas-log"$ip_only".tar.gz ~/MAAS-REPORT/
