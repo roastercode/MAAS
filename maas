@@ -61,8 +61,8 @@ done
 # Execute the file in git during the configuration on the machine
 while true; do
     echo "What do you want to do?"
-    read -p "Update & Upgrade | Install | Command | Forensic analysis | Virus Scan | Hardware Information? " uicfvh
-    case $uicfvh in
+    read -p "Update & Upgrade | Install | Remove | Command | Forensic analysis | Virus Scan | Hardware Information? " uircfvh
+    case $uircfvh in
 	
 	# Full Update
 	[Uu]* ) mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'update.sh' -m2
@@ -84,6 +84,15 @@ while true; do
 		chmod +x install.sh
 		echo "Loading MAAS install please wait "
 		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'install.sh' -m2
+		break;;
+
+		# Remove a package
+	[Rr]* ) echo "which software do you wish to remove? "
+		read soft_remove
+		sed -i "s/soft_remove/$soft_remove/g" remove.sh
+		chmod +x remove.sh
+		echo "Loading MAAS remove please wait "
+		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'remove.sh' -m2
 		break;;
 	
 	# Load a command

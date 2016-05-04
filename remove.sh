@@ -36,22 +36,22 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get remove soft_install ; exit
+    sudo apt-get remove soft_remove ; exit
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -R soft_install ; exit
+    sudo pacman -R soft_remove ; exit
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt remove soft_install ; exit
+    sudo apt remove soft_remove ; exit
 fi
 
 # For RedHat / Fedora / Centos and derivatives
 if command_exists dnf ; then
-    sudo dnf remove soft_install ; exit
+    sudo dnf remove soft_remove ; exit
 else
-    sudo yum remove soft_install ; exit
+    sudo yum remove soft_remove ; exit
 fi
