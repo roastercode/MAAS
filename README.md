@@ -36,8 +36,8 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 ### What it does:
 
 	- Update and Upgrade a cluster of different type of OS from one command
-	- Install a package from all the target
-	- Remove a package from all the target
+	- Install a package on all the targeted machines
+	- Remove a package from all the targeted machines
 	- Load directly a command all over your hostfile
     - Make Forensic analysis with the plugin Faron(made by MAAS)
     - Make Virus scan analysis with the plugin VirusScan(made by MAAS)
