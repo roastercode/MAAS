@@ -48,7 +48,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 ### Can works with plugin
 
 	- FARON - Forensic Analyser Remote Over Network
-	  . FARON offer the tools of FAST with the power of MAAS
+	  . FARON offer the tools of FAST rewritten and shellcheck with the power of MAAS
 	  . Log everything and bring them back to the admin
 	- VirusScan - Scan, log and bring back log to the admin
 	  . Load an up to date version of antivirus
