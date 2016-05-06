@@ -35,7 +35,7 @@ printf "\033[1;32mYou need root privileges to run it\033[0m%s\n"
 # Copy files in the working directory
 mkdir -p /home/"$the_user"/MAAS-REPORT/
 mkdir -p /home/"$the_user"/MAAS-REPORT/LOG/
-cp scan.awk faron.sh update.sh install.sh remove.sh virusscan.sh sysinfo.sh /home/"$the_user"/MAAS/
+cp run maas scan.awk faron.sh update.sh install.sh remove.sh virusscan.sh sysinfo.sh /home/"$the_user"/MAAS/
 
 cp -r mussh /home/"$the_user"/MAAS/
 cd /home/"$the_user"/MAAS/
