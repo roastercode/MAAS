@@ -4,6 +4,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
 [![GitHub Stats](https://img.shields.io/badge/github-stats-ff5500.svg)](http://githubstats.com/aurelien-git/MAAS)
 
+## MAAS is now part of Savannah.gnu.org \o/
 
 ## MAAS is a toolkit for heterogeneous LAN and Networks that works on all your different type of OS remotely at the same time without installation.
 
