@@ -44,7 +44,7 @@ done
 while true; do
     read -p "Do you need MAAS to grab MUSSH for you? Y/n " yn
     case $yn in
-	[Yy]* ) wget ftp://ftp.hackers.camp/dep/mussh-1.0.tgz ; tar xvf mussh-1.0.tgz ; break;;
+	[Yy]* ) wget http://git.savannah.gnu.org/cgit/maas.git/tree/mussh-1.0.tgz ; tar xvf mussh-1.0.tgz ; break;;
 	[Nn]* ) break;;
 	* ) echo "Please answer Yes or no.";;
     esac
