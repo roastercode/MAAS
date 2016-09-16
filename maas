@@ -32,13 +32,29 @@ printf "\033[1;32mMAAS offer you the way to works with different OS type like th
 printf "\033[1;32mPlease report your needs to:\033[0m aurelien@hackers.camp%s\n"
 printf "\033[1;32mYou need root privileges to run it\033[0m%s\n"
 
-# Copy files in the working directory
-mkdir -p /home/"$the_user"/MAAS-REPORT/
-mkdir -p /home/"$the_user"/MAAS-REPORT/LOG/
-cp run maas scan.awk faron.sh update.sh install.sh remove.sh virusscan.sh sysinfo.sh /home/"$the_user"/MAAS/
+# append to the private key
+while true; do
+    read -p "Do you need to use a private key to connect on this cluster network? Y/n " yn
+    case $yn in
+	[Yy]* ) # adding a key
+	    printf "%s\nHere is the list of your keys on this system $the_user%s\n"
+	    ls -la ~/.ssh/
+	    printf "%s\nWrite the name of the private key you wish to use $the_user%s\n"
+	    read private
+	    break;;
+	[Nn]* ) break;;
+	* ) echo "Please answer Yes or no.";;
+    esac
+done
 
-cp -r mussh /home/"$the_user"/MAAS/
-cd /home/"$the_user"/MAAS/
+
+# Copy files in the working directory
+mkdir -p ~/MAAS-REPORT/
+mkdir -p ~/MAAS-REPORT/LOG/
+cp run maas scan.awk faron.sh update.sh install.sh remove.sh virusscan.sh sysinfo.sh ~/MAAS/
+
+cp -r mussh ~/MAAS/
+cd ~/MAAS/
 
 
 # Register the user identification during process
@@ -54,7 +70,7 @@ ssh-add -l | grep "The agent has no identities" && ssh-add
 # copy files to remote host
 printf "\033[1;32m%s\nCoying files on remote machines\033[0m%s\n"
 for s in $(cat maas-hostfile) ; do
-    scp -r /home/"$the_user"/MAAS/ "$s":~/MAAS/
+    scp -r ~/MAAS/ "$s":~/MAAS/
 done
 
 # Request the user what he want to do
@@ -65,7 +81,7 @@ while true; do
     case $uircfvh in
 	
 	# Full Update
-	[Uu]* ) mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'update.sh' -m2
+	[Uu]* ) mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'update.sh' -m2
 		break;;
 	
 	# Search for a package
@@ -74,7 +90,7 @@ while true; do
 		sed -i "s/soft_search/$soft_search/g" search.sh
 		chmod +x search.sh
 		echo "Loading MAAS search please wait "
-		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C "search.sh" -m2
+		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C "search.sh" -m2
 		break;;
 	
 	# Install a package
@@ -83,7 +99,7 @@ while true; do
 		sed -i "s/soft_install/$soft_install/g" install.sh
 		chmod +x install.sh
 		echo "Loading MAAS install please wait "
-		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'install.sh' -m2
+		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'install.sh' -m2
 		break;;
 
 		# Remove a package
@@ -92,26 +108,26 @@ while true; do
 		sed -i "s/soft_remove/$soft_remove/g" remove.sh
 		chmod +x remove.sh
 		echo "Loading MAAS remove please wait "
-		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'remove.sh' -m2
+		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'remove.sh' -m2
 		break;;
 	
 	# Load a command
 	[Cc]* ) echo "which command do you want to load? "
 		read command_request
 		echo "Loading MAAS command please wait "
-		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -c "$command_request" -m2
+		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -c "$command_request" -m2
 		break;;
 
 	
 	# Forensic Scan & Log
 	[Ff]* ) echo "MAAS will now load FARON - Forensic Analyser Remote Over Network"
-		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -c 'sh /root/MAAS/faron.sh' -m2
+		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -c 'sh /root/MAAS/faron.sh' -m2
 
 		# Get the log back
 		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
 
 		for s in $(cat maas-hostfile) ; do
-		    scp "$s":~/maas-log*tar.gz /home/"$the_user"/MAAS-REPORT/LOG/
+		    scp "$s":~/maas-log*tar.gz ~/MAAS-REPORT/LOG/
 		done
 		break;;
 
@@ -119,13 +135,13 @@ while true; do
 	# Virus Scan & Log
 	[Vv]* ) echo "MAAS will now load Virus Scan - Scan, log and report"
 		mkdir ~/MAAS-REPORT/LOG/
-		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'virusscan.sh' -m2
+		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'virusscan.sh' -m2
 
 		# Get the log back
 		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
 
 		for s in $(cat maas-hostfile) ; do
-		    scp "$s":~/maas-virus-log*tar.gz /home/"$the_user"/MAAS-REPORT/LOG/
+		    scp "$s":~/maas-virus-log*tar.gz ~/MAAS-REPORT/LOG/
 		done
 		break;;
 	
@@ -133,13 +149,13 @@ while true; do
 	# Hardware and System Information & Log
 	[Hh]* ) echo "MAAS will now load The Hardware and System Information Scan - Scan, log and report"
 		mkdir ~/MAAS-REPORT/LOG/
-		mussh/mussh -a -i /home/"$the_user"/.ssh/"$private" -d -H maas-hostfile -C 'sysinfo.sh' -m2
+		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'sysinfo.sh' -m2
 
 		# Get the log back
 		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
 
 		for s in $(cat maas-hostfile) ; do
-		    scp "$s":~/maas-sysinfo-log*tar.gz /home/"$the_user"/MAAS-REPORT/LOG/
+		    scp "$s":~/maas-sysinfo-log*tar.gz ~/MAAS-REPORT/LOG/
 		done
 		break;;
 	
