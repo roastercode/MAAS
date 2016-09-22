@@ -51,45 +51,12 @@ while true; do
 done
 
 
-# Vefify and install the dependencies if needed
-#printf "%s\nThe software will now get the needed dependencies for your\noperating system $the_user%s\n"
-
-# load installation of the dependencies
-# verification of the package manager
-# NO MORE NEEDED FROM THE VERSION 0.2 BECAUSE MAAS GRAB ITSELF THE SOURCE OF MUSSH
-# BUT WE KEEP THAT PART TO BE READY TO ADD SOME COMING DEPENDENCIES
-#command_exists () {
-#    type "$1" &> /dev/null ;
-#}
-#
-## auto-selection of the package manager
-## dnf - Fedora - fredora
-#if command_exists dnf ; then
-#    sudo dnf install mussh
-#else
-#    # yum - RedHat - old fredora
-#    sudo yum install mussh
-#fi
-## apt - Debian - Trisquel
-#if command_exists apt-get ; then
-#    sudo apt-get install mussh
-#fi
-## pacman - Archlinux - Parabola
-#if command_exists pacman ; then
-#    sudo pacman -Sy mussh
-#fi
-## apt - Rooted smartphone
-#if command_exists apt ; then
-#    sudo apt install mussh
-#fi
-# 
-
 # Verify that directory MAAS exist or create it (-p option)
-mkdir -p /home/"$the_user"/MAAS/
+mkdir -p ~/MAAS/
 
 
 # Verify that maas-hostfile exist or create it
-touch /home/"$the_user"/MAAS/maas-hostfile || exit
+touch ~/MAAS/maas-hostfile || exit
 
 
 # Clear or not the host target file
@@ -98,7 +65,7 @@ while true; do
     case $cu in
 	[Cc]* ) # Clear the target file
 		printf "%s\nMAAS will now create/clear your host list of remote machine%s\n%s\n"
-		truncate -s 0 /home/"$the_user"/MAAS/maas-hostfile
+		truncate -s 0 ~/MAAS/maas-hostfile
 		break;;
 	[Uu]* ) break;;
 	* ) echo "Please answer Clear or use.";;
@@ -117,8 +84,8 @@ while true; do
 		do
 		    my_array=("${my_array[@]}" $line)
 		done
-		printf -- '%s\n ' "${my_array[@]}" | tee -a /home/"$the_user"/MAAS/maas-hostfile
-		set -f /home/"$the_user"/MAAS/maas-hostfile
+		printf -- '%s\n ' "${my_array[@]}" | tee -a ~/MAAS/maas-hostfile
+		set -f ~/MAAS/maas-hostfile
 		break;;
 	[Nn]* ) break;;
 	* ) echo "Please answer Yes or no.";;
@@ -126,30 +93,13 @@ while true; do
 done
 
 
-# append to the private key
-while true; do
-    read -p "Do you need to use a private key to connect on this cluster network? Y/n " yn
-    case $yn in
-	[Yy]* ) # adding a key
-	    printf "%s\nHere is the list of your keys on this system $the_user%s\n"
-	    ls -la /home/"$the_user"/.ssh/
-	    printf "%s\nWrite the name of the private key you wish to use $the_user%s\n"
-	    read private
-	    break;;
-	[Nn]* ) break;;
-	* ) echo "Please answer Yes or no.";;
-    esac
-done
+cp maas update.sh operator.sh scan.awk ~/MAAS/
 
-#cp maas update.sh operator.sh scan.awk ~/MAAS/
-
-#chmod +x ~/MAAS/maas ~/MAAS/update.sh
+chmod +x ~/MAAS/maas ~/MAAS/update.sh
 
 
 echo "Loading MAAS please wait"
 
 sleep 2
 
-. maas
-
-maas
+sh maas
