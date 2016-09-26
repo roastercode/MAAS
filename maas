@@ -117,9 +117,13 @@ while true; do
 		break;;
 
 	# Transfer files to remote host
-	[Tt]* ) printf "\033[1;32m%s\nCoying files on remote machines\033[0m%s\n"
+	[Tt]* ) echo "Which file do you wan to sent to remote target?"
+		read from
+		echo "Where do you want to sent that file on remote target?"
+		read to
+		printf "\033[1;32m%s\nCoying files on remote target\033[0m%s\n"
 		for target in $(cat maas-hostfile) ; do
-		    scp -r ~/MAAS/ "$target":~/MAAS/
+		    scp -r "$from" "$target":"$to"
 		done
 		break;;
 
