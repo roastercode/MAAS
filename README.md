@@ -4,7 +4,6 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
 [![GitHub Stats](https://img.shields.io/badge/github-stats-ff5500.svg)](http://githubstats.com/aurelien-git/MAAS)
 
-## MAAS is now part of Savannah.gnu.org \o/
 
 ## MAAS is a toolkit for heterogeneous LAN and Networks that works on all your different type of OS remotely at the same time without installation.
 
@@ -30,18 +29,20 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 
 ### How use it:
 
-	- . run
+	- sudo sh run
 	- Will grab the MUSSH source code (gplv2) to run it in MAAS
 	- It will load installation of needed dependencies of plugins
     - It will send all needed file on remote machines
     - It will execute command and plugin on remote target
     - It will bring back all actions log to the admin
+	- At the time you already have run the run file you can just do: sudo sh maas
  
 ### What it does:
 
 	- Update and Upgrade a cluster of different type of OS from one command
 	- Install a package on all the targeted machines
 	- Remove a package from all the targeted machines
+	- Transfert files to remote target
 	- Load directly a command all over your hostfile
     - Make Forensic analysis with the plugin Faron(made by MAAS)
     - Make Virus scan analysis with the plugin VirusScan(made by MAAS)
@@ -62,3 +63,4 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
       . Load the analysis on the system
       . Log all the analysis
 
+#### M.A.A.S. Is now at Savanah \o/ 
