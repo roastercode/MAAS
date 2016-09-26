@@ -1,0 +1,173 @@
+.\" $Id: mussh.1,v 1.5 2006-12-26 21:57:22 doughnut Exp $
+.\"
+.TH MUSSH 1 "August 2005" Doughnut "MUltihost SSH"
+.SH NAME
+mussh \- MUltihost SSH
+.SH SYNOPSIS
+.B mussh [
+.I OPTIONS
+.B ] <\-h 
+.I host...
+.B | \-H 
+.I hostfile
+.B > [\-c
+.I cmd
+.B ] [\-C 
+.I scriptfile
+.B ]
+.SH DESCRIPTION
+.B mussh
+is a shell script that allows you to execute a command or script over 
+.BR ssh (1) 
+on multiple hosts with one command. When possible mussh will use
+.BR ssh\-agent (1)
+and RSA/DSA keys to minimize the need to enter your password
+more than once.
+.SH OPTIONS
+.IP \-\-help
+Prints full help text.
+.IP \-d
+Same as \-d 1
+.IP "\-d 0"
+Turns debug mode off.
+.IP "\-d 1"
+On STDERR prints out basic actions and ssh\-agent
+activity and which host is being connected to.
+.IP "\-d 2"
+Includes all of the output from \-d1, the list of
+hosts, the command/script as it will be
+executed on each host, and a lot more.
+.IP \-v
+Same as \-v 1
+.IP "\-v 1"
+Sets ssh in debug1 mode by passing "\-v" to ssh.
+.IP "\-v 2"
+Sets ssh in debug2 mode by passing "\-v \-v" to ssh.
+.IP "\-v 3"
+Sets ssh in debug3 mode by passing "\-v \-v \-v" to ssh.
+.IP "\-m [n]"
+Run concurrently on 'n' hosts at a time (asynchronous).
+Use '0' (zero) for infinite. (default)
+.IP \-q
+No output unless necessary.
+This will cancel \-d and \-v if after them on
+the command line.  It also suppresses the output
+of each host.  This will NOT suppress the
+password/passphrase prompts required to log
+into each host.
+.IP "\-i <identity> [identity ..]"
+Load an identity file.
+When \-i is used, the specified identity file(s) is
+loaded instead of the default identity.  You can
+load as many RSA/DSA identities as you'd like.
+.IP "\-o <ssh\-args>"
+Args to pass to ssh with \-o option.  See the
+.BR ssh (1) 
+man page for more info on the \-o option.
+.IP \-a
+Force loading ssh\-agent.  Without this flag, mussh will not load another
+agent when one is already loaded.
+.IP \-A
+Do NOT load ssh\-agent.  If no agent is loaded you will be prompted for a
+password or passphrase by ssh for each host.  If
+you do not have RSA/DSA keys for the destination
+hosts, this will save you some hassle.
+.IP \-b
+Print each hosts' output in a block without mingling
+with other hosts' output.
+.IP \-B
+Allow hosts' output to mingle. (default)
+.IP \-u
+Unique.  Eliminate duplicate hosts. (default)
+If you a host or user@host occurs more than
+once across files specified with \-H or hosts
+specified with \-h, the host or user@host is used
+only once.
+.IP \-U
+Do NOT make host list unique.  This simply overrides the \-u flag.  This will
+cause scripts to be executed on duplicate hosts
+once per listing.
+.IP \-P
+Do NOT fall back to passwords on any host.  This will
+skip hosts where keys fail.  If you use this with
+'\-d' you'll still see which hosts failed.
+.IP "\-l <login>"
+Use 'login' when no other is specified with hostname.
+.IP "\-L <login>"
+Force use of 'login' name on all hosts.  These can be
+handy for adding 'root@' to hostnames kept in a file
+for \-H option.  With \-h it means you get to type less.
+.IP "\-s <shell>"
+Path to shell on remote host. (Default: bash)
+.IP "\-t <secs>"
+Timeout setting for each session.
+(requires openssh 3.8 or newer)
+.IP \-V
+Print version info and exit.
+.SH PROXY ARGS
+.IP "\-p [user@]<host>"
+Host to use as proxy.  (Must have mussh installed)
+.IP "\-po <ssh\-args>"
+Args to pass to ssh on proxy with \-o option.
+.SH HOST ARGS
+.IP "\-h [user@]<host> [[user@]<host> ..]"
+Add a host to list of hosts.  May be
+used more than once.
+.IP "\-H <file> [file ..]"
+Add contents of file(s) to list of hosts.
+Files should have one host per line.  Use
+"#" for comments.
+.SH COMMAND ARGS
+If neither is specified, commands will be read from standard input.
+.IP "\-c <command>"
+Add a command or quoted list of commands and
+args to list of commands to be executed on
+each host.  May be used more than once.
+.IP "\-C <file> [file ..]"
+Add file contents to list of commands to be
+executed on each host.  May be used more
+than once.
+.SH PROXY MODE
+When proxying, mussh can use a single remote server to as a bastion host.  All hosts 
+will be connected to from the central host rather than from the computer where you 
+are initially running mussh.  This can be handy when you only have access to one
+machine behind a firewall.
+
+The proxy host must have OpenSSH 2.3 or greater, or an sshd that works with
+ForwardAgent under ssh2.  Proxy server must also have mussh installed
+in your PATH.  To verify that it is in your path use "ssh user@proxy 'which mussh'".
+Use "ssh user@proxy 'echo $PATH'" to determine what your path is.
+.SH SSH\-AGENT INTERACTION
+Assuming that you're not turning off the agent with '\-A' mussh will attempt
+to use 
+.BR ssh\-agent (1).
+Normally mussh will get rid of the agent when it exits.
+See EXAMPLES for examples.
+.SH EXAMPLES
+There is an EXAMPLES file with detailed examples.
+
+.IP "The basic command:"
+.B $ mussh \-h foo bar baz 
+
+.IP "A simple command:"
+.B $ mussh \-h foo bar baz \-c 'rpm \-e emacs'
+
+.IP "A simple command asynchronously:"
+.B $ mussh \-h foo bar baz \-c 'rpm \-e emacs' \-m
+
+.IP "Using a specific key:"
+.B $ mussh \-h foo bar baz \-c 'rpm \-e emacs' \-i ~/.ssh/my_other.key
+
+.IP "Loading a list of hosts from a file:"
+.B $ mussh \-H /tmp/hostlist.txt \-c 'rpm \-e emacs'
+
+.IP "Loading a script from a file:"
+.B $ mussh \-h foo bar baz \-C /tmp/scriptfile.sh
+
+.SH BUGS
+Please report any bugs at http://sourceforge.net/projects/mussh/
+.SH AUTHOR
+Dave Fogarty <doughnut at doughnut dot net>
+.SH "SEE ALSO"
+.BR ssh (1),
+.BR ssh\-agent (1)
