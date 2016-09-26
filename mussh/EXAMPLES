@@ -1,0 +1,118 @@
+	SITUATION A (using ssh-agent):
+	You run mussh and ssh-agent loads your default rsa/dsa key.  You
+	are prompted for your passphrase, you enter it, mussh executes
+	the commands, kills ssh-agent, and exits.
+
+[doughnut@extradot doughnut]$ mussh -h swing slide junglegym -c 'rpm -q emacs'
+Need passphrase for /home/doughnut/.ssh/identity
+Enter passphrase for doughnut@extradot.yourdomain.com:
+Identity added: /home/doughnut/.ssh/identity (doughnut@extradot.yourdomain.com)
+ 
+junglegym: package emacs is not installed
+slide: package emacs is not installed
+swing: package emacs is not installed
+
+
+
+
+	SITUATION B (using passwords):
+	You run mussh but don't have RSA/DSA keys set up.  When mussh connects
+	to each host, it prompts you for the password.  After completing 
+	the last host, mussh exits.
+
+[doughnut@extradot doughnut]$ mussh -h swing slide junglegym -c 'rpm -q emacs'
+/home/doughnut/.ssh/identity: No such file or directory
+ 
+doughnut@junglegym's password:
+junglegym: package emacs is not installed
+doughnut@slide's password:
+slide: package emacs is not installed
+doughnut@swing's password:
+swing: package emacs is not installed
+
+
+
+
+
+	SITUATION C (ssh-agent already running):
+	If you are already running ssh-agent with the keys loaded, mussh 
+	will not load keys unless you tell it to with the -i flag.
+
+[doughnut@extradot doughnut]$ mussh -h swing slide junglegym -c 'rpm -q emacs'
+ 
+junglegym: package emacs is not installed
+slide: package emacs is not installed
+swing: package emacs is not installed
+
+
+
+
+
+	SITUATION D (everything but a goat):
+	This example uses almost everything you could.  Specifying hosts
+	on the command line AND in a file with comments and blank lines, 
+	executing commands from the command line and from a file, forcing
+	a unique agent to be loaded, using multiple keys (both RSA and DSA),
+	and turing debug mode on for verbose output.
+
+[doughnut@extradot doughnut]$ cat dev/spfiles/testhosts
+dave@hobo
+#test@testhost
+
+merrygoround
+[doughnut@extradot doughnut]$ cat dev/spfiles/testscript
+date
+uptime
+
+[doughnut@extradot doughnut]$ mussh -a -i $HOME/.ssh/identity $HOME/.ssh/id_dsa -d -h swing slide -H dev/spfiles/testhosts -h junglegym -c 'rpm -q emacs' -C dev/spfiles/testscript
+DEBUG: Starting Agent
+DEBUG: Forcing SSH Agent
+DEBUG: Adding Keys
+Need passphrase for /home/doughnut/.ssh/identity
+Enter passphrase for doughnut@extradot.yourdomain.com:
+Identity added: /home/doughnut/.ssh/identity (doughnut@extradot.yourdomain.com)
+Need passphrase for /home/doughnut/.ssh/id_dsa
+Enter passphrase for /home/doughnut/.ssh/id_dsa:
+Bad passphrase, try again:
+Identity added: /home/doughnut/.ssh/id_dsa (/home/doughnut/.ssh/id_dsa)
+
+DEBUG: CONNECT junglegym
+junglegym: Wed Jun 27 18:34:37 PDT 2001
+junglegym:   6:34pm  up 19 days, 18:46,  1 user,  load average: 0.00, 0.00, 0.00
+junglegym: package emacs is not installed
+DEBUG: CONNECT dave@hobo
+dave@hobo: Wed Jun 27 18:35:35 PDT 2001
+dave@hobo:   6:35pm  up 20 days, 19:54, 11 users,  load average: 0.00, 0.00, 0.00
+dave@hobo: package emacs is not installed
+DEBUG: CONNECT merrygoround
+merrygoround: Wed Jun 27 18:35:27 PDT 2001
+merrygoround:   6:35pm  up 20 days, 19:53,  1 user,  load average: 0.22, 0.11, 0.03
+merrygoround: emacs-20.5-7
+DEBUG: CONNECT slide
+slide: Wed Jun 27 18:35:32 PDT 2001
+slide:   6:35pm  up 19 days, 17:40,  4 users,  load average: 0.00, 0.00, 0.00
+slide: package emacs is not installed
+DEBUG: CONNECT swing
+swing: Wed Jun 27 18:36:15 PDT 2001
+swing:   6:36pm  up 20 days, 19:54,  3 users,  load average: 0.00, 0.00, 0.00
+swing: package emacs is not installed
+DEBUG: Removing keys from agent
+DEBUG: Stopping Agent
+
+
+
+
+	SITUATION E (asynchronous mode with ssh-agent already running):
+	Asynchronous mode (-m) allows you to get done a lot quicker by
+	not having to wait for one host to finnish before moving on to
+	the next.
+
+
+[doughnut@shoe mussh]$ mussh -h swing slide junglegym -c 'echo hello ; sleep 2 ; echo bye' -m2
+junglegym: hello
+slide: hello
+junglegym: bye
+swing: hello
+slide: bye
+swing: bye
+

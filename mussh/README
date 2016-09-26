@@ -1,0 +1,173 @@
+mussh - MUltihost SSH 
+
+$Id: README,v 1.7 2005/08/24 00:34:31 doughnut Exp $
+
+=====================
+Mussh is a shell script that allows you to execute a command or script
+over ssh on multiple hosts with one command. When possible mussh will use 
+ssh-agent and RSA/DSA keys to minimize the need to enter your password 
+more than once.
+
+
+Requirements
+============
+General:
+- ssh with ssh-agent
+When Proxying:
+- Proxy server must have OpenSSH 2.3 or greater, or an sshd that works with
+  ForwardAgent under ssh2.
+- Proxy server must have mussh installed in your PATH.  To verify that it
+  is in your path use "ssh user@proxy 'which mussh'". 
+  Use "ssh user@proxy 'echo $PATH'" to determine what your path is.
+
+License
+=======
+GPL
+
+
+Compatibility
+============
+I wrote and tested this on Mandrake 8.x, Redhat 7.x, RedHat Enterprise
+(2.1,3,4), and Fedora Core (3,4,5).  Other than that, it needs more testing!
+If you get this to run _anywhere_ else, email me at doughnut@doughnut.net.
+
+
+Interaction with ssh-agent
+==========================
+Assuming that you're not turning off the agent with '-A' mussh will attempt
+to use ssh-agent.  Normally mussh will get rid of the agent when it exits.
+See EXAMPLES for examples.
+
+
+Usage
+=====
+mussh [OPTIONS] <HOST ARGS> <COMMAND ARGS>
+
+Arguments can be in any order.
+
+OPTIONS:
+	--help          This gives a brief help message.
+	
+	-d              see -d1
+
+	-d 0            Turns debug mode off.
+
+	-d 1            On STDERR prints out basic actions and ssh-agent
+	                activity and which host is being connected to.
+
+	-d 2            Includes all of the output from -d1, the list of 
+			hosts and the command/script as it will be
+			executed on each host.
+
+	-v		see -v1
+
+	-v 1            Sets ssh in debug1 mode by passing "-v" to ssh.
+			
+	-v 2            Sets ssh in debug2 mode by passing "-v -v" to ssh.
+			
+	-v 3            Sets ssh in debug3 mode by passing "-v -v -v" to ssh.
+
+	-m [n]          Run concurrently on 'n' hosts at a time (async).
+			Use '0' (zero) for infinite. (default if -m)
+
+			
+	-q              No output unless necessary.
+	                This will cancel -d and -v if after them on
+			the command line.  It also suppresses the output
+			of each host.  This will NOT suppress the
+			password/passphrase prompts required to log 
+			into each host.
+
+	-P              Do NOT fall back to passwords on any host.  This will
+                        skip hosts where keys fail.  If you use this with
+			'-d' you'll still see which hosts failed.
+			
+	-i <identity> [identity ..]
+	                Load an identity file.  
+	                When -i is used, the specified identity file(s) is
+			loaded instead of the default identity.  You can
+			load as many RSA/DSA identities as you'd like.
+			
+	-o <ssh-args>   Args to pass to ssh with -o option.  See the
+	                ssh(1) man page for more info on the -o option.
+
+	-a              Force loading ssh-agent.
+	                Without this flag, mussh will not load another 
+			agent when one is already loaded.
+			
+	-A              Do NOT load ssh-agent.
+	                If no agent is loaded you will be prompted for a
+			password or passphrase by ssh for each host.  If
+			you do not have RSA/DSA keys for the destination
+			hosts, this will save you some hassle.
+
+	-b              Print each hosts' output in a block without mingling
+			with other hosts' output.
+	-B              Allow hosts' output to mingle. (default)
+
+
+	-l <login>      Use 'login' when no other is specified with hostname.
+	-L <login>      Force use of 'login' name on all hosts.  These can be
+	                handy for adding 'root@' to hostnames kept in a file
+			for -H option.  With -h it means you get to type less.
+			
+	-u              Unique.  Eliminate duplicate hosts (default).
+	                If you a host or user@host occurs more than
+			once across files specified with -H or hosts
+			specified with -h, the host or user@host is used
+			only once.
+			
+	-U              Do NOT make host list unique.
+	                This simply overrides the -u flag.  This will
+			cause scripts to be executed on duplicate hosts
+			once per listing.
+
+	-s <shell>      Path to shell on remote host. (Default: bash)
+			This will allow you to run commands in a shell other
+			than bash.  Sorry but one had to be specified.
+
+	-t <secs>	Timeout setting for each session.
+                        (requires openssh 3.8 or newer)
+
+	-V              Print version info and exit.
+
+	
+	
+HOST ARGS:
+	-h [user@]<host> [[user@]<host> ..]
+	                As with ssh itself, the username can be 
+			supplied for a host but is not required.
+			
+	-H <file> [file ..]
+	                Add contents of file(s) to list of hosts.
+			Files should have one host per line.  Use
+			"#" for comments.
+			
+COMMAND ARGS:
+	-c <command>    Add a command or quoted list of commands and
+	                args to list of commands to be executed on
+			each host.  May be used more than once.
+
+	-C <file> [file ..]
+	                Add file contents to list of commands to be
+	                executed on each host.  May be used more
+	                than once.
+
+At least one host is required.  Arguments are in no particular order.
+
+
+Tips
+====
+ -  To pipe commands to mussh, you can get the commands from standard 
+    input by using '-C -'.
+ -  To pipe hosts to mussh, you can get the hosts from standard input
+    by using '-H -'.
+ -  When you already have an ssh-agent loaded, you can avoid loading
+    sensitive keys into that agent by using '-a' to force mussh
+    to load (and dispose of) it's own agent.
+ -  When mussh is running you can use CTRL-\ to view which hosts are 
+    currently running and which hosts remain.
+ -  Blocking (-b) in asynchronous mode (-m) only makes the output look
+    serial.  The commands are still running at the same time on the
+    remote host.
+

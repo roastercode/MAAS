@@ -1,0 +1,80 @@
+v1.0
+2011-10-25
+	- Another fix to CTRL-\.  "HOSTS RUNNING:" was not working.
+	- Increased efficiency when async.  Thanks, Jacob Lundberg.
+	- No more need for 'seq'.  Thanks, Jacob Lundberg.
+	- Spelling correction and other minor fixes. Thanks, Jacob Lundberg.
+	- Support for netgroups added.  Thanks, Scott Bigelow.
+	- Debug mode fix when using proxy.  Thanks, Stephane Alnet.
+	- Numeric args more intuitive but backwards compatible.
+	- Verbose ssh now works.
+
+v0.7
+2006-12-26
+	- Minor bug fix avoids error when someone hits CTRL-\
+	  and there are no .active files.
+	- Added man page.
+	- Added ssh timeout
+
+v0.6 (BETA)
+2005-06-11:
+	- added '-s' to ssh-agent calls so that they will work
+	  for people with non-bash shells.  (thanks to Jacob)
+	- Asynchronous mode works.
+	- Asynchronous mode required temp files so we use 
+	  mktemp to make it safer.
+	- Blocking option in async mode.
+	- All debug messages go to STDERR.
+	- Invoke remote shell (default bash) explicitely.
+	- SIGQUIT (ctrl-\) prints current/remaining host(s).
+	- Modernized all ``'s to $()'s.
+
+v0.5
+2002-07-30:
+	- Removed need for temp files.  ssh-agent is now evaled
+	  and not sourced.
+2002-02-11:
+	- Created rpm spec file.
+
+v0.4
+2002-01-22:
+	- Added Feature: -l and -L allow you to specify login
+	  name from the command line.
+	- Malcolm found a bug where mussh would hang with
+	  "StrictHostKeyChecking=ask".  Added "BatchMode=yes"
+	  and changed how mussh handles STDIN/STDERR so that
+	  those hosts will fail immediately.
+	- Removed '-q' flag to ssh since above change makes it 
+	  hide errors from ssh.
+	- Fixed broken -U mussh flag.
+
+v0.3
+2001-11-24:
+	- Separated mussh debug (-d) from ssh debug (-v).
+	- Added '-P' flag to never use passwords.
+2001-07-20:
+	- Greater control of debug levels. 
+	- Debug (-D) now ties into ssh -v.
+
+v0.2beta3
+2001-07-19:
+	- Modified -i to accept multiple args like '-H' or '-C'.
+2001-07-12:
+	- Fixed bug introduced in v0.2beta2 where '-' could not be used 
+	  with '-C' or '-H' to get values from STDIN.
+2001-06-05:
+	- Got rid of blank line produced by hosts with no output.
+
+v0.2beta2
+2001-06-03:
+	- Fixed bug with -q.  Quiet mode was turning on -d debug.
+	- STDIN is now default for commands.  The -c and -C are 
+	  now optional.
+	- Scripts and commands are now executed in the order they
+	  were given NOT reverse order.
+	- Updated "Usage" and documentation to reflect above changes.
+
+v0.2beta
+2001-06-02:
+	- Initial Release
+
