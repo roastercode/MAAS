@@ -16,10 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-#maas() {
-
-
 tput clear
 
 the_user="$(whoami)"
@@ -68,18 +64,27 @@ ssh-add -l | grep "The agent has no identities" && ssh-add
 
 
 # copy files to remote host
-printf "\033[1;32m%s\nCoying files on remote machines\033[0m%s\n"
-for s in $(cat maas-hostfile) ; do
-    scp -r ~/MAAS/ "$s":~/MAAS/
+while true; do
+    read -p "Do you wish to send M.A.A.S tools to the target machine? Y/n " yn
+    case $yn in
+	[Yy]* ) # send files to the target machines
+	    printf "\033[1;32m%s\nCoying files on remote machines\033[0m%s\n"
+	    for target in $(cat maas-hostfile) ; do
+		scp -r ~/MAAS/ "$target":~/MAAS/
+	    done
+	    break;;
+	[Nn]* ) break;;
+	* ) echo "Please answer Yes or no.";;
+    esac
 done
 
 # Request the user what he want to do
 # Execute the file in git during the configuration on the machine
 while true; do
     echo "What do you want to do?"
-    read -p "Update & Upgrade | Install | Remove | Command | Forensic analysis | Virus Scan | Hardware Information? " uircfvh
-    case $uircfvh in
-	
+    read -p "Update & Upgrade | Install | Remove | Search | Transfer | Command | Forensic analysis | Virus Scan | Hardware Information? " uirstcfvh
+    case $uirstcfvh in
+
 	# Full Update
 	[Uu]* ) mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'update.sh' -m2
 		break;;
@@ -110,14 +115,20 @@ while true; do
 		echo "Loading MAAS remove please wait "
 		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'remove.sh' -m2
 		break;;
-	
+
+	# Transfer files to remote host
+	[Tt]* ) printf "\033[1;32m%s\nCoying files on remote machines\033[0m%s\n"
+		for target in $(cat maas-hostfile) ; do
+		    scp -r ~/MAAS/ "$target":~/MAAS/
+		done
+		break;;
+
 	# Load a command
 	[Cc]* ) echo "which command do you want to load? "
 		read command_request
 		echo "Loading MAAS command please wait "
 		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -c "$command_request" -m2
 		break;;
-
 	
 	# Forensic Scan & Log
 	[Ff]* ) echo "MAAS will now load FARON - Forensic Analyser Remote Over Network"
@@ -126,8 +137,8 @@ while true; do
 		# Get the log back
 		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
 
-		for s in $(cat maas-hostfile) ; do
-		    scp "$s":~/maas-log*tar.gz ~/MAAS-REPORT/LOG/
+		for target in $(cat maas-hostfile) ; do
+		    scp "$target":~/maas-log*tar.gz ~/MAAS-REPORT/LOG/
 		done
 		break;;
 
@@ -140,8 +151,8 @@ while true; do
 		# Get the log back
 		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
 
-		for s in $(cat maas-hostfile) ; do
-		    scp "$s":~/maas-virus-log*tar.gz ~/MAAS-REPORT/LOG/
+		for target in $(cat maas-hostfile) ; do
+		    scp "$target":~/maas-virus-log*tar.gz ~/MAAS-REPORT/LOG/
 		done
 		break;;
 	
@@ -154,8 +165,8 @@ while true; do
 		# Get the log back
 		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
 
-		for s in $(cat maas-hostfile) ; do
-		    scp "$s":~/maas-sysinfo-log*tar.gz ~/MAAS-REPORT/LOG/
+		for target in $(cat maas-hostfile) ; do
+		    scp "$target":~/maas-sysinfo-log*tar.gz ~/MAAS-REPORT/LOG/
 		done
 		break;;
 	
@@ -163,5 +174,3 @@ while true; do
 	* ) echo "Please answer 'U'pdate/'U'pgrade or 'I'nstall or 'C'ommand or 'F'orensic or 'V'irus scan.";;
     esac
 done
-
-#}
