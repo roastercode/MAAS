@@ -48,9 +48,12 @@ if command_exists apt ; then
     sudo apt update ; sudo apt upgrade ; exit
 fi
 
-# For RedHat / Fedora / Centos and derivatives
+# For Fedora and derivatives
 if command_exists dnf ; then
-    sudo dnf update ; exit
-else
-    sudo yum update ; exit
+    sudo dnf update -y ; exit
+fi
+
+# For RedHat / CentOS and derivatives
+if command_exists yum ; then
+    sudo yum update -y ; exit
 fi

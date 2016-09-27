@@ -49,9 +49,12 @@ if command_exists apt ; then
     sudo apt install soft_install ; exit
 fi
 
-# For RedHat / Fedora / Centos and derivatives
+# For Fedora and derivatives
 if command_exists dnf ; then
-    sudo dnf install soft_install ; exit
-else
-    sudo yum install soft_install ; exit
+    sudo dnf install -y soft_install ; exit
+fi
+
+# For RedHat / CentOS and derivatives
+if command_exists yum ; then
+    sudo yum install -y soft_install ; exit
 fi

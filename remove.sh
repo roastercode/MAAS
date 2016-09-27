@@ -49,9 +49,12 @@ if command_exists apt ; then
     sudo apt remove soft_remove ; exit
 fi
 
-# For RedHat / Fedora / Centos and derivatives
+# For Fedora and derivatives
 if command_exists dnf ; then
-    sudo dnf remove soft_remove ; exit
-else
-    sudo yum remove soft_remove ; exit
+    sudo dnf install -y soft_remvove ; exit
+fi
+
+# For RedHat / CentOS and derivatives
+if command_exists yum ; then
+    sudo yum install -y soft_remove ; exit
 fi

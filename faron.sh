@@ -53,24 +53,27 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get install gawk
+    sudo apt-get install iw iftop gawk ; exit
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -Sy iw gawk
+    sudo pacman -Sy iw iftop gawk ; exit
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt install gawk
+    sudo apt install iw iftop gawk ; exit
 fi
 
-# For RedHat / Fedora / Centos and derivatives
+# For Fedora and derivatives
+if command_exists dnf ; then
+    sudo dnf install -y iw iftop gawk ; exit
+fi
+
+# For RedHat / CentOS and derivatives
 if command_exists yum ; then
-    sudo dnf install gawk
-else
-    sudo yum install gawk
+    sudo yum install -y iw iftop gawk ; exit
 fi
 
 

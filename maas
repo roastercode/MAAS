@@ -47,9 +47,7 @@ done
 # Copy files in the working directory
 mkdir -p ~/MAAS-REPORT/
 mkdir -p ~/MAAS-REPORT/LOG/
-cp run maas scan.awk faron.sh update.sh install.sh remove.sh virusscan.sh sysinfo.sh ~/MAAS/
-
-cp -r mussh ~/MAAS/
+cp -r run maas mussh search.sh scan.awk faron.sh update.sh install.sh remove.sh virusscan.sh sysinfo.sh ~/MAAS/
 cd ~/MAAS/
 
 

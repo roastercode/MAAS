@@ -30,11 +30,10 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 ### How use it:
 
 	- sudo sh run
-	- Will grab the MUSSH source code (gplv2) to run it in MAAS
-	- It will load installation of needed dependencies of plugins
-    - It will send all needed file on remote machines
-    - It will execute command and plugin on remote target
-    - It will bring back all actions log to the admin
+	- Load installation of needed dependencies of plugins
+    - Send all needed file on remote machines
+    - Execute command and plugin on remote target
+    - Bring back all actions log to the admin
 	- At the time you already have run the run file you can just do: sudo sh maas
  
 ### What it does:

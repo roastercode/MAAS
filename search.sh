@@ -40,9 +40,12 @@ if command_exists apt ; then
     sudo apt search soft_search ; exit
 fi
 
-# For RedHat / Fedora / Centos and derivatives
+# For Fedora and derivatives
 if command_exists dnf ; then
     sudo dnf search soft_search ; exit
-elif
+fi
+
+# For RedHat / CentOS and derivatives
+if command_exists yum ; then
     sudo yum search soft_search ; exit
 fi

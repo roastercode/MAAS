@@ -47,26 +47,28 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get install clamav clamav-update clamav-freshclam clamdscan gawk
+    sudo apt-get install clamav clamav-update clamav-freshclam clamdscan gawk ; exit
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -Sy clamav clamav-update iw
+    sudo pacman -Sy clamav clamav-update iw ; exit
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt install clamav clamav-update
+    sudo apt install clamav clamav-update ; exit
 fi
 
-# For RedHat / Fedora / Centos and derivatives
+# For Fedora and derivatives
 if command_exists dnf ; then
-    sudo dnf install clamav clamav-update gawk
-else
-    sudo yum install clamav clamav-update gawk
+    sudo dnf install -y clamav clamav-update ; exit
 fi
 
+# For RedHat / CentOS and derivatives
+if command_exists yum ; then
+    sudo yum install -y clamav clamav-update ; exit
+fi
 
 
 # command

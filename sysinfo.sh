@@ -55,24 +55,27 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get install gawk df nethogs sysstat lshw lsscsi hdparm dmidecode
+    sudo apt-get install gawk df nethogs sysstat lshw lsscsi hdparm dmidecode ; exit
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -Sy iw gawk df nethogs sysstat lshw lsscsi hdparm dmidecode
+    sudo pacman -Sy iw gawk df nethogs sysstat lshw lsscsi hdparm dmidecode ; exit
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt install gawk df nethogs sysstat lshw lsscsi hdparm dmidecode
+    sudo apt install gawk df nethogs sysstat lshw lsscsi hdparm dmidecode ; exit
 fi
 
-# For RedHat / Fedora / Centos and derivatives
+# For Fedora and derivatives
 if command_exists dnf ; then
-    sudo dnf install gawk df nethogs sysstat lshw lsscsi hdparm dmidecode
-else
-    sudo yum install gawk df nethogs sysstat lshw lsscsi hdparm dmidecode
+    sudo dnf install -y gawk df nethogs sysstat lshw lsscsi hdparm dmidecode ; exit
+fi
+
+# For RedHat / CentOS and derivatives
+if command_exists yum ; then
+    sudo yum install -y gawk df nethogs sysstat lshw lsscsi hdparm dmidecode ; exit
 fi
 
 sudo mkdir MAAS-REPORT

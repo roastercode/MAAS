@@ -40,17 +40,6 @@ while true; do
     esac
 done
 
-# Grab MUSSH
-while true; do
-    read -p "Do you need MAAS to grab MUSSH for you? Y/n " yn
-    case $yn in
-	[Yy]* ) wget http://git.savannah.gnu.org/cgit/maas.git/tree/mussh-1.0.tgz ; tar xvf mussh-1.0.tgz ; break;;
-	[Nn]* ) break;;
-	* ) echo "Please answer Yes or no.";;
-    esac
-done
-
-
 # Verify that directory MAAS exist or create it (-p option)
 mkdir -p ~/MAAS/
 
@@ -93,7 +82,7 @@ while true; do
 done
 
 
-cp maas update.sh operator.sh scan.awk ~/MAAS/
+cp maas update.sh scan.awk ~/MAAS/
 
 chmod +x ~/MAAS/maas ~/MAAS/update.sh
 
