@@ -49,3 +49,8 @@ fi
 if command_exists yum ; then
     sudo yum search soft_search ; exit
 fi
+
+# For FreeBSD
+if command_exists pkg ; then
+    sudo pkg search soft_search ; exit
+fi
