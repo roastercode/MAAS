@@ -58,3 +58,7 @@ fi
 if command_exists yum ; then
     sudo yum install -y soft_install ; exit
 fi
+
+if command_exit pkg ; then
+    sudo pkg install -y soft_install ; exit
+fi
