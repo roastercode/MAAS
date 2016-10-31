@@ -35,7 +35,7 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get update ; sudo apt-get upgrade ; exit
+    sudo apt-get update && sudo apt-get upgrade ; exit
 fi
 
 # For Archlinux / Parabola and derivatives
@@ -45,7 +45,7 @@ fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt update ; sudo apt upgrade ; exit
+    sudo apt update && sudo apt upgrade ; exit
 fi
 
 # For Fedora and derivatives
@@ -55,5 +55,10 @@ fi
 
 # For RedHat / CentOS and derivatives
 if command_exists yum ; then
-    sudo yum update -y ; exit
+    sudo yum update -y && sudo yum upgrade ; exit
+fi
+
+# For FreeBSD
+if command_exists pkg ; then
+    sudo pkg update ; exit
 fi
