@@ -58,3 +58,8 @@ fi
 if command_exists yum ; then
     sudo yum install -y soft_remove ; exit
 fi
+
+# For FreeBSD
+if command_exists pkg ; then
+    sudo pkg install -y soft_remove ; exit
+fi
