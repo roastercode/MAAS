@@ -25,7 +25,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 	- RedHat / Fedora / Freedora and derivative
 	- Debian / Ubuntu / Trisquel and derivative
 	- Android / Cyanogen / Replicant and (rooted) derivative
-	- FreeBSD
+	- FreeBSD (not for all plugin at this time)
 
 ### How use it:
 
