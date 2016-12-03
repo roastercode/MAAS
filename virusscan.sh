@@ -70,6 +70,11 @@ if command_exists yum ; then
     sudo yum install -y clamav clamav-update ; exit
 fi
 
+# For FreeBSD
+if command_exists pkg ; then
+    sudo pkg install -y clamav ; exit
+fi
+
 
 # command
 the_user="$(whoami)"
