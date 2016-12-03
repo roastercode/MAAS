@@ -47,7 +47,7 @@ done
 # Copy files in the working directory
 mkdir -p ~/MAAS-REPORT/
 mkdir -p ~/MAAS-REPORT/LOG/
-cp -r run maas mussh search.sh scan.awk faron.sh update.sh install.sh remove.sh virusscan.sh sysinfo.sh ~/MAAS/
+cp -r run maas mussh search.sh scan.awk faron.sh update.sh install.sh remove.sh virusscan.sh sysinfo.sh cryptosteg.sh ~/MAAS/
 cd ~/MAAS/
 
 
@@ -80,8 +80,8 @@ done
 # Execute the file in git during the configuration on the machine
 while true; do
     echo "What do you want to do?"
-    read -p "Update & Upgrade | Install | Remove | Search | Transfer | Command | Forensic analysis | Virus Scan | Hardware Information? " uirstcfvh
-    case $uirstcfvh in
+    read -p "Update & Upgrade | Install | Remove | Search | Transfer | Command | Forensic analysis | Virus Scan | Hardware Information | Backup ? " uirstcfvhb
+    case $uirstcfvhb in
 
 	# Full Update
 	[Uu]* ) mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'update.sh' -m2
@@ -171,8 +171,45 @@ while true; do
 		    scp "$target":~/maas-sysinfo-log*tar.gz ~/MAAS-REPORT/LOG/
 		done
 		break;;
+
+
+	# Encrypted backup
+	[Bb]* ) echo "MAAS will now load the Backup Encryption and Steganographic \nsolution on your remote target"
+		mkdir ~/MAAS-REPORT/BACKUP/
+
+		# Request the user to create an encrypted key
+		while true; do
+		    read -p "Do you need to create an encrypted key? Y/n " yn
+		    case $yn in
+			[Yy]* ) # creating a key
+			    printf "/!\ If you forget your passphrase, the key cannot be used\n and any data encrypted using that key will be lost.\n"
+			    gpg2 --full-gen-key
+			    break;;
+			[Nn]* ) break;;
+			* ) echo "Please answer Yes or no.";;
+		    esac
+		done
+
+		# Send the forged key on remote target and load the encryption process
+		scp -r ~/.ssh/"$private" "$target":~/.ssh/
+
+		# Request the user wish of backup
+		echo "which file or directory do you wish to backup and encrypt? "
+	        read soft_backup
+		sed -i "s/soft_backup/$soft_backup/g" cryptosteg.sh
+		chmod +x cryptosteg.sh
+		echo "Loading MAAS search please wait "
+		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C "cryptosteg.sh" -m2
+		
+		# Get the backup back
+		printf "\033[1;32m\nGetting all logs back ...\033[0m%s\n"
+
+		for target in $(cat mass-hostfile) ; do
+		    scp "$target":~/"$soft_backup".tar.xz ~/MAAS-REPORT/BACKUP/
+		done
+		break;;
 	
 	# request of the correct word / letter
-	* ) echo "Please answer 'U'pdate/'U'pgrade or 'I'nstall or 'C'ommand or 'F'orensic or 'V'irus scan.";;
+	* ) echo "Please answer 'U'pdate/'U'pgrade or 'I'nstall or 'C'ommand or 'F'orensic or 'V'irus scan \n 'H'ardware Information or 'B'ackup.";;
     esac
 done
