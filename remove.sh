@@ -2,7 +2,7 @@
 # MAAS
 # Multiplexer Adaptive Adminstrator Solution
 
-# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp> 
+# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -51,15 +51,20 @@ fi
 
 # For Fedora and derivatives
 if command_exists dnf ; then
-    sudo dnf install -y soft_remvove ; exit
+    sudo dnf remove -y soft_remvove ; exit
 fi
 
 # For RedHat / CentOS and derivatives
 if command_exists yum ; then
-    sudo yum install -y soft_remove ; exit
+    sudo yum remove -y soft_remove ; exit
+fi
+
+# For Gentoo
+if command_exists emerge ; then
+    sudo emerge --remove -y soft_remove ; exit
 fi
 
 # For FreeBSD
 if command_exists pkg ; then
-    sudo pkg install -y soft_remove ; exit
+    sudo pkg remove -y soft_remove ; exit
 fi
