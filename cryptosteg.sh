@@ -29,37 +29,37 @@ while true; do
 
 	    # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 	    if command_exists apt-get ; then
-		sudo apt-get install steghid gnupg ;
+		sudo apt-get install steghid gnupg ; exit
 	    fi
 
 	    # For Archlinux / Parabola and derivatives
 	    if command_exists pacman ; then
-		sudo pacman -Sy steghide gnupg ;
+		sudo pacman -Sy steghide gnupg ; exit
 	    fi
 
 	    # For Android / Cyanogen / Replicant and derivatives
 	    if command_exists apt ; then
-		sudo apt install steghide gnupg ;
+		sudo apt install steghide gnupg ; exit
 	    fi
 
 	    # For Fedora and derivatives
 	    if command_exists dnf ; then
-		sudo dnf install -y steghide gnupg ;
+		sudo dnf install -y steghide gnupg ; exit
 	    fi
 
 	    # For RedHat / CentOS and derivatives
 	    if command_exists yum ; then
-		sudo yum install -y steghide gnupg ;
+		sudo yum install -y steghide gnupg ; exit
 	    fi
 
     	    # For Gentoo
 	    if command_exists emerge ; then
-		sudo emerge --ask -y steghide gnupg ;
+		sudo emerge --ask -y steghide gnupg ; exit
 	    fi
 
 	    # For FreeBSD
 	    if command_exit pkg ; then
-		sudo pkg install -y steghide gnupg ;
+		sudo pkg install -y steghide gnupg ; exit
 	    fi
 	    break;;
 	[Nn]* ) break ;;
