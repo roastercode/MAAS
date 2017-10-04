@@ -25,7 +25,9 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 	- RedHat / Fedora / Freedora and derivative
 	- Debian / Ubuntu / Trisquel and derivative
 	- Android / Cyanogen / Replicant and (rooted) derivative
-	- FreeBSD (not for all plugin at this time)
+	- FreeBSD
+	- Gentoo
+	- Sabayon
 
 ### How use it:
 
@@ -35,7 +37,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
     - Execute command and plugin on remote target
     - Bring back all actions log to the admin
 	- At the time you already have run the run file you can just do: sudo sh maas
- 
+
 ### What it does:
 
 	- Update and Upgrade a cluster of different type of OS from one command
@@ -43,11 +45,11 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
 	- Remove a package from all the targeted machines
 	- Transfert files to remote target
 	- Load directly a command all over your hostfile
-    - Make Forensic analysis with the plugin Faron(made by MAAS)
-    - Make Virus scan analysis with the plugin VirusScan(made by MAAS)
+    - Make Forensic analysis with the plugin Faron (made by MAAS)
+    - Make Virus scan analysis with the plugin VirusScan (made by MAAS)
     - Bring back log or Forensic & VirusScan
     - Make System and Hardware analysis
-	- Bacup your remote data to encrypted gpg solution and bring it back to you
+	- Backup your remote data to encrypted gpg solution and bring it back to you
 
 
 ### Can works with plugin
@@ -62,5 +64,10 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
       . Load the analysis on hardware
       . Load the analysis on the system
       . Log all the analysis
+	- CryptoSteg - Encryption + Steganography of your data
+	  . Encrypt / Decrypt your data + use steganography solution to improve security level of all your target
+	- Install - It offer you the way to install the software you wish on all your target
+	- Remove - It offer you the way to remove the software you wish on all your target
+	- Update - It offer you the way to update / upgrade all your target
 
-#### M.A.A.S. Is now at Savanah \o/ 
+#### M.A.A.S. Is now at Savanah \o/
