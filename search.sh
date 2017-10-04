@@ -3,7 +3,7 @@
 # Multiplexer Adaptive Adminstrator Solution
 # Configuration file
 
-# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp> 
+# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,6 +48,11 @@ fi
 # For RedHat / CentOS and derivatives
 if command_exists yum ; then
     sudo yum search soft_search ; exit
+fi
+
+# For Gentoo
+if command_exists emerge ; then
+    sudo emerge --search soft_search ; exit
 fi
 
 # For FreeBSD
