@@ -2,7 +2,7 @@
 # MAAS
 # Multiplexer Adaptive Adminstrator Solution
 
-# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp> 
+# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -56,6 +56,11 @@ fi
 # For RedHat / CentOS and derivatives
 if command_exists yum ; then
     sudo yum update -y && sudo yum upgrade ; exit
+fi
+
+# For Gentoo
+if command_exists emerge ; then
+    sudo emerge --sync && emerge --deep --with-bdeps=y --update @world ; exit
 fi
 
 # For FreeBSD
