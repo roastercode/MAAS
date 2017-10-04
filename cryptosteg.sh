@@ -6,8 +6,8 @@
 # find the license at gnu.org and much more ;-)
 
 # Variables
-ENCRYPT=$"gpg -c"
-DECRYPT=$"gpg"
+ENCRYPT="$(gpg -c)"
+DECRYPT="$(gpg)"
 
 # Clear the terminal
 tput clear
@@ -26,7 +26,7 @@ while true; do
 	    command_exists () {
 		type "$1" &> /dev/null ;
 	    }
-	    
+
 	    # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 	    if command_exists apt-get ; then
 		sudo apt-get install steghid gnupg ;
@@ -60,14 +60,37 @@ while true; do
 	* ) echo "Please answer Yes or no. ";;
     esac
 done
-		
-# Encrypt
-$ENCRYPT soft_backup
 
-# Compress
-sudo tar -cf - soft_backup.gpg | xz -9 -c - > soft_backup.tar.xz
 
-printf "Well done, soft_backup .tar.xz now contain your secret safe\n"
+# Encrypt or Decrypt?
+while true; do
+    read -p "Do you which to encrypt or decrypt data? Encrypt/Decrypt " ed
+    case $ed in
+	[Ee]* ) # Encrypt - Request the user where and which file he wish to encrypt
+	    printf "Which file do you wish to encrypt?\n"
+	    printf "Please provide its place and name like /home/user/file\n"
+	    read FILE
 
-break;;
+	    # Encrypt
+	    "$ENCRYPT" "$FILE"
+	    # Request the user which picture he want to use
+	    printf "Which picture do you wish to use?\n"
+	    printf "Please provide its place and name like /home/user/picture\n"
+	    read PICTURE
+	    # Grab and Steg the file
+	    steghide embed -cf "$PICTURE" -ef "$FILE".gpg
+	    printf -v "Well done, $PICTURE now contain your secret safe\n"
+	    break;;
+	[Dd]* ) # Decrypt - Request the user where and which file he wish to decrypt
+	    printf "Which picture do you want to extract?\n"
+	    printf "Please provide its place and name like /home/user/picture\n"
+	    read PICTURE
+	    # Encrypt
+	    steghide extract -sf "$PICTURE"
+	    $DECRYPT ./*.gpg
+	    printf "Well done, your file is now human readable\n"
+	    break;;
+	* ) echo "Please answer Encrypt or Decrypt.";;
+    esac
+done
 exit
