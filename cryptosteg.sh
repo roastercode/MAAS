@@ -52,6 +52,12 @@ while true; do
 		sudo yum install -y steghide gnupg ;
 	    fi
 
+    	    # For Gentoo
+	    if command_exists emerge ; then
+		sudo emerge --ask -y steghide gnupg ;
+	    fi
+
+	    # For FreeBSD
 	    if command_exit pkg ; then
 		sudo pkg install -y steghide gnupg ;
 	    fi
