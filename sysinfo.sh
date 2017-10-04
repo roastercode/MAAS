@@ -77,6 +77,11 @@ if command_exists emerge ; then
     sudo emerge --ask -y gawk df nethogs sysstat lshw lsscsi hdparm dmidecode ; exit
 fi
 
+# For Sabayon
+if command_exit equo ; then
+    sudo equo install -y gawk df nethogs sysstat lshw lsscsi hdparm dmidecode ; exit
+fi
+
 # For RedHat / CentOS and derivatives
 if command_exists yum ; then
     sudo yum install -y gawk df nethogs sysstat lshw lsscsi hdparm dmidecode ; exit

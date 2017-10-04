@@ -76,6 +76,11 @@ if command_exists emerge ; then
     sudo emerge --ask -y iw iftop gawk ; exit
 fi
 
+# For Sabayon
+if command_exit equo ; then
+    sudo equo install -y iw iftop gawk ; exit
+fi
+
 # For RedHat / CentOS and derivatives
 if command_exists yum ; then
     sudo yum install -y iw iftop gawk ; exit

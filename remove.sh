@@ -64,6 +64,11 @@ if command_exists emerge ; then
     sudo emerge --remove -y soft_remove ; exit
 fi
 
+# For Sabayon
+if command_exit equo ; then
+    sudo equo install -y soft_remove ; exit
+fi
+
 # For FreeBSD
 if command_exists pkg ; then
     sudo pkg remove -y soft_remove ; exit

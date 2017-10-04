@@ -2,7 +2,7 @@
 # VirusScan & report log
 # Multiplexer Administrator Solution
 
-# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp> 
+# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ printf "\033[1;32mWelcome to FARON - Forensic Analyser Remote Over Network\033[0
 printf "\033[1;32mFARON is made to run as a MAAS dependencie\033[0m%s\n"
 printf "\033[1;32mFARON will run during more than one hour!\033[0m%s\n"
 
-
 # Register the user identification during process
 printf "\033[1;32m%s\nRegistering you identification during the MAAS process\033[0m%s\n"
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
@@ -37,9 +36,8 @@ export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 ssh-add -l | grep "The agent has no identities" && ssh-add
 
 
-
 # Vefify and install the dependencies if needed
-printf "%s\nThe software will now get the needed dependencies for your\noperating system $the_user%s\n"  
+printf "%s\nThe software will now get the needed dependencies for your\noperating system $the_user%s\n"
 
 command_exists () {
     type "$1" &> /dev/null ;
@@ -47,34 +45,43 @@ command_exists () {
 
 # For Debian / Ubuntu / Trisquel / gNewSense and derivatives
 if command_exists apt-get ; then
-    sudo apt-get install clamav clamav-update clamav-freshclam clamdscan gawk ; exit
+    sudo apt-get install clamav clamav-freshclam clamdscan gawk ; exit
 fi
 
 # For Archlinux / Parabola and derivatives
 if command_exists pacman ; then
-    sudo pacman -Sy clamav clamav-update iw ; exit
+    sudo pacman -Sy clamav iw clamav-freshclam clamdscan gawk ; exit
 fi
 
 # For Android / Cyanogen / Replicant and derivatives
 if command_exists apt ; then
-    sudo apt install clamav clamav-update ; exit
+    sudo apt install clamav iw clamav-freshclam clamdscan gawk ; exit
 fi
 
 # For Fedora and derivatives
 if command_exists dnf ; then
-    sudo dnf install -y clamav clamav-update ; exit
+    sudo dnf install -y clamav iw clamav-freshclam clamdscan gawk ; exit
 fi
 
 # For RedHat / CentOS and derivatives
 if command_exists yum ; then
-    sudo yum install -y clamav clamav-update ; exit
+    sudo yum install -y clamav iw clamav-freshclam clamdscan gawk ; exit
+fi
+
+# For Gentoo
+if command_exists emerge ; then
+    sudo emerge --ask -y clamav iw clamav-freshclam clamdscan gawk ; exit
+fi
+
+# For Sabayon
+if command_exit equo ; then
+    sudo equo install -y clamav iw clamav-freshclam clamdscan gawk ; exit
 fi
 
 # For FreeBSD
 if command_exists pkg ; then
-    sudo pkg install -y clamav ; exit
+    sudo pkg install -y clamav iw clamav-freshclam clamdscan gawk ; exit
 fi
-
 
 # command
 the_user="$(whoami)"
@@ -100,4 +107,3 @@ printf "\033[1;32mResult of the virus scan:\033[0m\n$virusscan%s\n" | tee -a MAA
 ## Bring back all log to the admin
 mkdir -p ~/MAAS-REPORT/LOG/
 sudo tar czvf maas-virus-log"$ip_only".tar.gz ~/MAAS-REPORT/LOG/
-

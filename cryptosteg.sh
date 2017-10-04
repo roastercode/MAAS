@@ -57,6 +57,11 @@ while true; do
 		sudo emerge --ask -y steghide gnupg ; exit
 	    fi
 
+    	    # For Sabayon
+	    if command_exit equo ; then
+		sudo equo install -y steghide gnupg ; exit
+	    fi
+
 	    # For FreeBSD
 	    if command_exit pkg ; then
 		sudo pkg install -y steghide gnupg ; exit

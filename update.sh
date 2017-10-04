@@ -63,6 +63,11 @@ if command_exists emerge ; then
     sudo emerge --sync && emerge --deep --with-bdeps=y --update @world ; exit
 fi
 
+# For Sabayon
+if command_exit equo ; then
+    sudo equo update -y; sudo equo upgrade ; exit
+fi
+
 # For FreeBSD
 if command_exists pkg ; then
     sudo pkg update ; exit

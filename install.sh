@@ -2,7 +2,7 @@
 # MAAS
 # Multiplexer Adaptive Adminstrator Solution
 
-# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp> 
+# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -59,6 +59,17 @@ if command_exists yum ; then
     sudo yum install -y soft_install ; exit
 fi
 
+# For Gentoo
+if command_exists emerge ; then
+    sudo emerge --ask -y soft_install ; exit
+fi
+
+# For Sabayon
+if command_exit equo ; then
+    sudo equo install -y soft_install ; exit
+fi
+
+# For FreeBSD
 if command_exit pkg ; then
     sudo pkg install -y soft_install ; exit
 fi
