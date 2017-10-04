@@ -2,7 +2,7 @@
 # SYSINFO
 # System Information Analyser Remote Over Network
 
-# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp> 
+# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,21 +22,20 @@
 
 tput clear # clear the terminal
 
-printf "\n\033[1;32mWelcome to SYSINFO - SYSTEM INFORMATION\033[0m\n"
-printf "\033[1;32mSYSINFO is made to run as a MAAS dependencie\033[0m\n"
-
-# Vefify and install the dependencies if needed
-printf "%s\nThe software will now get the needed dependencies for your%s\noperating system $t\
-he_user%s\n"
-
 # command
 the_user="$(whoami)"
-the_machine="$(hostname)"
+#the_machine="$(hostname)"
 ip="$(ip a | grep inet | grep 192)"
 network="$(ip addr show | awk '/inet.*brd/{print $NF; exit}')"
 ip_only="$(ip addr show "$network" | grep 'inet\b' | grep 192 | awk '{print $2}' | cut -d/ -f\
 1)"
-firewall="$(sudo iptables -L)"
+fire_wall="$(sudo iptables -L)"
+
+printf "\n\033[1;32mWelcome to SYSINFO - SYSTEM INFORMATION\033[0m\n"
+printf "\033[1;32mSYSINFO is made to run as a MAAS dependencie\033[0m\n"
+
+# Vefify and install the dependencies if needed
+printf "%s\nThe software will now get the needed dependencies for your%s\noperating system $the_user %s\n"
 
 # Register the user identification during process
 printf "\033[1;32m%s\nRegistering you identification during the MAAS process\033[0m%s\n"
@@ -103,8 +102,7 @@ touch MAAS-REPORT/sysinfo-report-"$ip_only"-program_analysis || exit
 truncate -s 0 MAAS-REPORT/sysinfo-report-"$ip_only"-program_analysis
 
 printf "%s\n\033[1;32mHere is the information of the Program Communication Analysis:\033[0m%s\n"
-sudo nethogs -c 30 | tee -a MAAS-REPORT/sysinfo-report-"$ip_only"-program_analysis
-
+sudo nethogs -c 30; echo "$ip" | tee -a MAAS-REPORT/sysinfo-report-"$ip_only"-program_analysis
 
 ### System information
 ### sar - from sysstat package
@@ -112,7 +110,14 @@ touch MAAS-REPORT/sysinfo-report-"$ip_only"-system_information || exit
 truncate -s 0 MAAS-REPORT/sysinfo-report-"$ip_only"-system_information
 
 printf "%s\n\033[1;32mHere is the System Information Analysis:\033[0m%s\n"
-export S_COLORS= && sar -A 1 1 | tee -a MAAS-REPORT/sysinfo-report-"$ip_only"-system_information
+export S_COLORS=&& sar -A 1 1; echo "$ip" | tee -a MAAS-REPORT/sysinfo-report-"$ip_only"-system_information
+
+### Firewall information
+touch MAAS-REPORT/sysinfo-report-"$ip_only"-firewall_information || exit
+truncate -s 0 MAAS-REPORT/sysinfo-report-"$ip_only"-firewall_information
+
+printf "%s\n\033[1;32mHere is the Firewall Information Analysis:\033[0m%s\n"
+"$fire_wall"; echo "$ip" | tee -a MAAS-REPORT/sysinfo-report-"$ip_only"-system_information
 
 
 ## Bring back all log to the admin
