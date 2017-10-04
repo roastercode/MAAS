@@ -2,7 +2,7 @@
 # FARON
 # Forensic Analyser Remote Over Network
 
-# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp> 
+# Copyright (C) 2016 Aurélien DESBRIÈRES <aurelien@hackers.camp>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ printf "\033[1;32mFARON is made to run as a MAAS dependencie\033[0m\n"
 printf "\033[1;32mFARON will run during more than one hour!\033[0m\n"
 
 # Vefify and install the dependencies if needed
-printf "%s\nThe software will now get the needed dependencies for your%s\noperating system $the_user%s\n"  
+printf "%s\nThe software will now get the needed dependencies for your%s\noperating system $the_user%s\n"
 
 # command
 the_user="$(whoami)"
@@ -69,6 +69,11 @@ fi
 # For Fedora and derivatives
 if command_exists dnf ; then
     sudo dnf install -y iw iftop gawk ; exit
+fi
+
+# For Gentoo
+if command_exists emerge ; then
+    sudo emerge --ask -y iw iftop gawk ; exit
 fi
 
 # For RedHat / CentOS and derivatives
