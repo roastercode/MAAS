@@ -66,7 +66,7 @@ GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
       . Log all the analysis
 	- CryptoSteg - Encryption + Steganography of your data
 	  . Encrypt / Decrypt your data + use steganography solution to improve security level of all your target
-	- Install - It offer you the way to install the software you wish on all your target
+	- MI (Mass Install) - It offer you the way to install the software you wish on all your target
 	- Remove - It offer you the way to remove the software you wish on all your target
 	- Update - It offer you the way to update / upgrade all your target
 

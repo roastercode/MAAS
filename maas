@@ -47,7 +47,7 @@ done
 # Copy files in the working directory
 mkdir -p ~/MAAS-REPORT/
 mkdir -p ~/MAAS-REPORT/LOG/
-cp -r run maas mussh search.sh scan.awk faron.sh update.sh install.sh remove.sh virusscan.sh sysinfo.sh cryptosteg.sh ~/MAAS/
+cp -r run maas mussh search.sh scan.awk faron.sh update.sh mi.sh remove.sh virusscan.sh sysinfo.sh cryptosteg.sh ~/MAAS/
 cd ~/MAAS/
 
 
@@ -99,10 +99,10 @@ while true; do
 	# Install a package
 	[Ii]* ) echo "which software do you wish to install? "
 		read soft_install
-		sed -i "s/soft_install/$soft_install/g" install.sh
-		chmod +x install.sh
+		sed -i "s/soft_install/$soft_install/g" mi.sh
+		chmod +x mi.sh
 		echo "Loading MAAS install please wait "
-		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'install.sh' -m2
+		mussh/mussh -a -i ~/.ssh/"$private" -d -H maas-hostfile -C 'mi.sh' -m2
 		break;;
 
 	# Remove a package
