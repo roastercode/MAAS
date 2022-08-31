@@ -1,6 +1,6 @@
 # MAAS - Multiplexer Adaptive Administrator Solution
 
-GPLv2 or later - aurelien@hackers.camp - Aurelien DESBRIERES
+GPLv2 or later - hello@roastercode.com
 
 [![GitHub Stats](https://img.shields.io/badge/github-stats-ff5500.svg)](http://githubstats.com/aurelien-git/MAAS)
 
