@@ -5,7 +5,16 @@ GPLv2 or later - hello@roastercode.com
 [![GitHub Stats](https://img.shields.io/badge/github-stats-ff5500.svg)](http://githubstats.com/aurelien-git/MAAS)
 
 
-## MAAS is a toolkit for heterogeneous LAN and Networks that works on all your different type of OS remotely at the same time without installation.
+## MAAS is a toolkit for a full control of your Datacenter heterogeneous or not.
+Fully written in 1000 lines of Bash it is made readable for security.
+
+You need a new action to your full datacenter? just write the Bash file that need to be executed, or launch directly your command line.
+
+Some people use complex and unreadable tools like ANSIBLE, Puppet or Chef.
+
+With MAAS, you just need to write what you want or execute already existant added tools.
+
+You think your tools should be added to MAAS? Just told us!
 
 
 ![MAAS image](img/MAAS.png)
