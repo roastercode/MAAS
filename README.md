@@ -1,4 +1,4 @@
-# MAAS - Multiplexer Adaptive Administrator Solution
+# MAAS - Scalable cluster administration Bash framework
 
 GPLv2 or later - hello@roastercode.com
 
