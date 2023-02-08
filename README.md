@@ -1,4 +1,4 @@
-# MAAS - Scalable cluster administration Bash framework
+# MAAS - Scalable Cluster Administration Bash framework
 
 GPLv2 or later - hello@roastercode.com
 
