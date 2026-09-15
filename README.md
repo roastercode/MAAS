@@ -1,6 +1,6 @@
 # MAAS - Scalable Cluster Administration Bash framework
 
-GPLv2 or later - hello@roastercode.com
+GPLv2 or later
 
 [![GitHub Stats](https://img.shields.io/badge/github-stats-ff5500.svg)](http://githubstats.com/aurelien-git/MAAS)
 
